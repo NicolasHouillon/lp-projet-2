@@ -1,0 +1,36 @@
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+
+$primary: #333;
+$secondary: #FFF0E5;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background-color: $secondary;
+}
+
+.navbar {
+  background-color: $blue;
+
+  .navbar-brand {
+    margin-right: 40px;
+  }
+
+  .nav-item:not(:first-child) {
+    margin-left: 40px;
+  }
+
+  a.nav-link {
+    font-family: "Cabin Sketch", cursive;
+    font-size: 1.2em;
+  }
+}
+
+
+.jumbotron {
+  background-color: $white;
+}
