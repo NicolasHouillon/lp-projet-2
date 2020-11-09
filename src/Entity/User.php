@@ -105,6 +105,10 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    public function getName() {
+        return $this->getFirstname() . " " . $this->getLastname();
+    }
+
     public function getSalt()
     {
         // TODO: Implement getSalt() method.

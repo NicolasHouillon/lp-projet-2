@@ -4,7 +4,34 @@
 
 {% block body %}
     {% if app.user %}
-        <h1>Coucou</h1>
+        <h1 class="display-4 mb-4">Bienvenue {{ app.user.name }} !</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="" class="d-flex" id="subject_form">
+                    <div class="w-100 mr-2">
+                        <h2>Choix d'un sujet</h2>
+                        <select name="" id="" class="custom-select">
+                            <option value="">Service de maintenance</option>
+                            <option value="">Médiathèque</option>
+                            <option value="">Vie d'un livre</option>
+                            <option value="">Pharmacie</option>
+                            <option value="">Tinygpao</option>
+                            <option value="">Société logistique</option>
+                            <option value="">Plateforme logistique</option>
+                        </select>
+                    </div>
+                    <div class="w-100 ml-2">
+                        <h2>Choix d'une base de données</h2>
+                        <select name="" id="" class="custom-select">
+                            <option value="">MySQL</option>
+                            <option value="">PostgreSQL</option>
+                            <option value="">SQLite</option>
+                        </select>
+                    </div>
+                </form>
+                <button type="submit" class="mt-4 btn btn-lg btn-primary" id="submitFormButton">Valider</button>
+            </div>
+        </div>
     {% else %}
         <div class="card">
             <div class="card-body">
@@ -22,4 +49,16 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let submitFormButton = document.getElementById('submitFormButton')
+        submitFormButton.addEventListener('click', (e) => {
+            e.preventDefault()
+            console.log("hey")
+            const form = document.getElementById('subject_form')
+            console.log(form)
+        })
+    </script>
 {% endblock %}
