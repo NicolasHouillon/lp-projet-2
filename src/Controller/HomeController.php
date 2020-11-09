@@ -13,8 +13,23 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        return $this->render('home/index.html.twig');
     }
+
+    /**
+     * @Route("/about", name="about")
+     */
+    public function about(): Response
+    {
+        return $this->render('home/about.html.twig');
+    }
+
+    /**
+     * @Route("/team", name="team")
+     */
+    public function team(): Response
+    {
+        return $this->render('home/team.html.twig');
+    }
+
 }
