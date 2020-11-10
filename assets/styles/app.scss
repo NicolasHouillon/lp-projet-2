@@ -1,8 +1,9 @@
-@import "variables";
 @import "~bootstrap/scss/bootstrap";
+@import "variables";
 
 $primary: #333;
 $secondary: #FFF0E5;
+$blue: rgba(10, 132, 255, .5) !default;
 
 html {
   position: relative;
@@ -14,8 +15,6 @@ body {
 }
 
 .navbar {
-  background-color: $blue;
-
   .navbar-brand {
     margin-right: 40px;
   }

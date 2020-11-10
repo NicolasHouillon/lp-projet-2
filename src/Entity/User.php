@@ -6,10 +6,11 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Un compte existe déjà avec cette adresse email.")
  */
 class User implements UserInterface
 {
@@ -21,21 +22,32 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3, minMessage="Le prénom doit faire plus de 3 caractères.")
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2, minMessage="Le prénom doit faire plus de 2 caractères.")
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Email(message="La valeur entrée n'est pas une adresse email valide.")
      * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length (min=8, minMessage="Le mot de passe doit faire plus de 8 caractères.")
+     * @Assert\Regex(
+     *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/",
+     *      message="Le mot de passe doit contenir des chiffres, des lettres miniscules et majuscules.")
      * @ORM\Column(type="string", length=255)
      */
     private $password;
