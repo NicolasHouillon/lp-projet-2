@@ -1,10 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-
-{% endblock %}
+{% block title %}{{ app_name }} - L'équipe{% endblock %}
 
 {% block body %}
+    <h1>L'équipe de développement de {{ app_name }}</h1>
 
+    <div class="card">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <h1>Guillaume Cavory</h1>
+            <span>Enseignant</span>
+        </div>
+        <a href="#" class="card-footer">Contacter</a>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <h1>Valentin Cernuta</h1>
+                    <span>Développeur front-end</span>
+                </div>
+                <a href="#" class="card-footer">Contacter</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <h1>Eric Bonnaire</h1>
+                    <span>Développeur back-end</span>
+                </div>
+                <a href="#" class="card-footer">Contacter</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <h1>Karl Remy</h1>
+                    <span>Développeur back-end</span>
+                </div>
+                <a href="#" class="card-footer">Contacter</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <h1>Nicolas Houillon</h1>
+                    <span>Développeur back-end</span>
+                </div>
+                <a href="#" class="card-footer">Contacter</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
