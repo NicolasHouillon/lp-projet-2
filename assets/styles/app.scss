@@ -1,5 +1,5 @@
-@import "~bootstrap/scss/bootstrap";
 @import "variables";
+@import "~bootstrap/scss/bootstrap";
 
 $primary: #333;
 $secondary: #FFF0E5;
@@ -15,6 +15,8 @@ body {
 }
 
 .navbar {
+  background-color: $blue !important;
+
   .navbar-brand {
     margin-right: 40px;
   }

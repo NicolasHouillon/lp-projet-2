@@ -77,6 +77,7 @@ class User implements UserInterface
     public function getLastname(): ?string
     {
         return $this->lastname;
+
     }
 
     public function setLastname(string $lastname): self
