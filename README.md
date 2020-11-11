@@ -3,6 +3,6 @@
 ## Todo
 - Gestion du profil utilisateur
     - Modification 🟢
+    - Suppression : 🟢
     - Avancements : 🟡
-    - Suppression : 🔴
     - Réinitialisation de la base de l'utilisateur : 🔴

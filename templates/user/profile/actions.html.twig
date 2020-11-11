@@ -15,7 +15,10 @@
 
                 <div class="alert alert-danger">
                     <h2 class="text-danger">Supprimer mon compte</h2>
-                    <div class="btn btn-lg btn-danger">Supprimer</div>
+                    <form action="{{ path('profile_delete') }}" method="post">
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-account') }}"/>
+                        <button type="submit" class="btn btn-lg btn-danger">Supprimer</button>
+                    </form>
                 </div>
             </div>
         </div>
