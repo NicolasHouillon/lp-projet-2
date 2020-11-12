@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app_name }} - Mes actions{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('user/profile/_menu.html.twig') }}
+        <div class="col card">
+            <h1 class="card-header">Mes actions</h1>
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <h2 class="text-danger">Vider ma base de données</h2>
+                    <div class="btn btn-lg btn-danger">Vider</div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <h2 class="text-danger">Supprimer mon compte</h2>
+                    <form action="{{ path('profile_delete') }}" method="post">
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-account') }}"/>
+                        <button type="submit" class="btn btn-lg btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

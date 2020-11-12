@@ -1,20 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}{{ app_name }} - Mon profil{% endblock %}
 
 {% block body %}
     <div class="row">
-        <div class="col-3">
-            <div class="list-group">
-                <button type="button" class="list-group-item list-group-item-action active">Mon profile</button>
-                <button type="button" class="list-group-item list-group-item-action">Mon avancement</button>
-                <button type="button" class="list-group-item list-group-item-action">Actions</button>
-            </div>
-        </div>
+        {{ include('user/profile/_menu.html.twig') }}
         <div class="col card">
             <div class="card-header d-flex justify-content-between">
                 <h1>Mon profil</h1>
-                <a href="" class="btn btn-primary d-flex align-self-center">Modifier</a>
+                <a href="{{ path('profile_edit') }}" class="btn btn-primary d-flex align-self-center">Modifier</a>
             </div>
             <div class="card-body">
                 <ul>
