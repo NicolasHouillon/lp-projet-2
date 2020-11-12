@@ -5,7 +5,7 @@
   "titre" : "VILLES",
   "requetes" : [
     {
-      "0": "CREATE TABLE villes(id INT PRIMARY KEY, nom VARCHAR(255) NOT NULL, pays VARCHAR(255) NOT NULL);"
+      "0": "CREATE TABLE villes(id INT PRIMARY KEY, nom VARCHAR(255) NOT NULL);"
     },
     {
       "1": "CREATE TABLE habitations(id INT PRIMARY KEY, num_addr VARCHAR(255) NOT NULL, rue VARCHAR(255) NOT NULL, code_postal VARCHAR(5) NOT NULL, ville INT NOT NULL REFERENCES villes(id) ON DELETE CASCADE ON UPDATE CASCADE);"
@@ -14,7 +14,7 @@
       "2": "CREATE TABLE habitants(id INT PRIMARY KEY AUTO_INCREMENT, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, date_naissance DATE NOT NULL, habitation INT NOT NULL REFERENCES habitations(id) ON DELETE CASCADE ON UPDATE CASCADE);"
     },
     {
-      "3": "INSERT INTO villes (nom, code_postal) VALUES ('Lille','59000', 'France'), ('Lens', '62300', 'France');"
+      "3": "INSERT INTO villes (nom, code_postal) VALUES ('Lille','59000'), ('Lens', '62300');"
     },
     {
       "4": "INSERT INTO habitations (num_addr, rue,ville) VALUES ('140', 'Rue du guet', 1), ('16', 'Rue de l''université', 2);"
