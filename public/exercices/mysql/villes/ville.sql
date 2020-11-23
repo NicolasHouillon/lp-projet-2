@@ -57,6 +57,6 @@ INSERT INTO habitants (nom, prenom, date_naissance, habitation) VALUES  ('Bonnai
 --
 -- SELECT * from villes ORDER BY code_postal desc;
 --
--- SELECT v.nom , COUNT(*) as 'nb_habitations' from habitations join villes v on habitations.ville = v.id GROUP BY v.nom;
+-- SELECT v.nom , COUNT(*) as 'nb_habitations' from habitations join villes v on habitations.villes = v.id GROUP BY v.nom;
 --
 -- SELECT YEAR(date_naissance) as 'annee de naissance' from habitants where prenom like 'Eric';
