@@ -13,7 +13,14 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig');
+
+        $file = 'exercices/sujets.json';
+        $data = file_get_contents($file);
+        $obj = json_decode($data, true);
+
+        return $this->render('home/index.html.twig',[
+            'sujets' => $obj
+            ]);
     }
 
     /**
