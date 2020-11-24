@@ -16,19 +16,20 @@ class TrainingController extends AbstractController
      */
     public function index(Request $request): Response
     {
+        $return = [];
         $sujet = $request->get('sujet');
-        $file = 'exercices/mysql/'.$sujet. '/' . $sujet . '.json';
-        $data = file_get_contents($file);
-        $obj = json_decode($data, true);
+        if($sujet === null) {
+            $this->addFlash("warning", "Vous devez choisir un sujet.");
+            return $this->redirectToRoute("home");
+        } else {
+            $file = 'exercices/mysql/'.$sujet. '/' . $sujet . '.json';
+            $data = file_get_contents($file);
+            $obj = json_decode($data, true);
 
-        $exercices = $obj['exercices'];
+            $return["sujet"] = $sujet;
+            $return["exercices"] = $obj['exercices'];
+        }
 
-//        $questions = $obj['exercices'][$exercice]['questions'];
-
-
-        return $this->render('training/index.html.twig', [
-            'sujet' => $obj,
-            'exercices' => $exercices
-        ]);
+        return $this->render('training/index.html.twig', $return);
     }
 }
