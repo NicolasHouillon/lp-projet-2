@@ -1,0 +1,54 @@
+version: "3.8"
+services: 
+  # Le service MySQL qui sert à stocker les base de données des utilisateurs
+  mariadb:
+    image: "mariadb:latest"
+    ports: 
+      - "8000:3306"
+    environment: 
+      MYSQL_USER: "root"
+      MYSQL_ROOT_PASSWORD: "root"
+  # Le service MySQL qui sert à stocker la base de données générale du site (utilisatteurs, classement, etc..)
+  general:
+    image: "mariadb:latest"
+    ports: 
+      - "6000:3306"
+    environment: 
+      MYSQL_USER: "root"
+      MYSQL_ROOT_PASSWORD: "root"
+  # Le service PostgreSQL qui sert à stocker les base de données des utilisateurs
+  postgre:
+    image: "postgres"
+    ports: 
+      - "7000:5432"
+    environment: 
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "root"
+  # Le service Nginx qui contient le serveur web (qui permet d'accéder au site)
+  nginx:
+    build: 
+      context: docker/nginx
+    ports:
+      - "3000:80"
+    volumes: 
+      - .:/var/www/html
+    networks: 
+      - symfony
+    depends_on: 
+      - php-fpm
+  # Le service PHP-fpm qui permet de faire le lien entre PHP et Nginx
+  php-fpm:
+    build: 
+      context: docker/php
+    ports: 
+      - "9000:9000"
+    depends_on: 
+      - mariadb
+      - postgre
+    volumes: 
+      - .:/var/www/html
+    networks: 
+      - symfony
+
+networks: 
+  symfony:
