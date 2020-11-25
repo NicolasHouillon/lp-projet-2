@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,9 +13,10 @@ class TrainingController extends AbstractController
     /**
      * @Route("/training", name="training")
      * @param Request $request
+     * @param CommentRepository $commentRepository
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request,CommentRepository $commentRepository): Response
     {
         $return = [];
         $sujet = $request->get('sujet');
@@ -35,6 +37,7 @@ class TrainingController extends AbstractController
             $return["exercices"] = $obj['exercices'];
         }
 
+        $return['comments'] = $commentRepository->findAll();
         return $this->render('training/index.html.twig', $return);
     }
 }
