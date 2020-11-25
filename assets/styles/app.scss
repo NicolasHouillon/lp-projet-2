@@ -31,7 +31,12 @@ body {
   }
 }
 
-
 .jumbotron {
   background-color: $white;
+}
+
+.CodeMirror {
+  max-height: 200px;
+  border-radius: $border-radius-sm;
+  padding: $spacer * .5;
 }

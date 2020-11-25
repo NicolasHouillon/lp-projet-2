@@ -31,7 +31,7 @@ services:
     ports:
       - "3000:80"
     volumes: 
-      - .:/var/www/html:delegated
+      - .:/var/www/html:cached
     networks: 
       - symfony
     depends_on: 
@@ -46,7 +46,7 @@ services:
       - mariadb
       - postgre
     volumes: 
-      - .:/var/www/html:delegated
+      - .:/var/www/html:cached
     networks: 
       - symfony
 

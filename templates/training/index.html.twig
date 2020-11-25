@@ -19,54 +19,23 @@
                 {% endfor %}
             </select>
         </div>
-        <a class="btn btn-primary" href="{{ path('home')}}">retour</a>
+        <a class="btn btn-primary" href="{{ path('home')}}">Retour à la liste des sujets</a>
     </div>
 
 
     <h2 class="mt-4">Votre requête</h2>
     <textarea class="form-control" id="request"></textarea>
 
-    <h2 class="mt-4">Vos réponses</h2>
-    <table class="table" id="responses">
-        <tr>
-            <td>coucou</td>
-            <td>lol mdr trop cool</td>
-            <td>lalalalalalala</td>
-        </tr>
-    </table>
+    {% include 'training/_your-responses.html.twig' %}
 
-    <h2 class="mt-4">Réponses attendues</h2>
-    <table class="table" id="requested">
-        <tr>
-            <td>coucou</td>
-            <td>lol mdr trop cool</td>
-            <td>lalalalalalala</td>
-        </tr>
-    </table>
+    {% include 'training/_requested-responses.html.twig' %}
 
-    <h2 class="mt-4">Commentaires</h2>
-    <table class="table">
-        <tr>
-            <td>coucou</td>
-            <td>lol mdr trop cool</td>
-            <td>lalalalalalala</td>
-        </tr>
-    </table>
+    {% include 'training/_comments.html.twig' %}
+
 
 {% endblock %}
 
-{% block javascripts %}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/sql/sql.min.js" integrity="sha512-XYk/tiIK55K3IheZ6V4bIackbqe6VgHmDujB7Gzx6DKY4juTq2oMNbfnD6DIcgQvE3czNK6yghz1cGkB2r1zzg==" crossorigin="anonymous"></script>
-    <script>
-        const textarea = document.getElementById('request')
-        const editor = CodeMirror.fromTextArea(textarea, {
-            mode: 'text/x-sql',
-            lineNumbers: true,
-            indentWithTabs: true,
-            smartIndent: true,
-            matchBrackets : true,
-            autofocus: true,
-        }).setOption('theme', 'material')
-    </script>
-{% endblock %}
+{#{% block javascripts %}#}
+{#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/sql/sql.min.js" integrity="sha512-XYk/tiIK55K3IheZ6V4bIackbqe6VgHmDujB7Gzx6DKY4juTq2oMNbfnD6DIcgQvE3czNK6yghz1cGkB2r1zzg==" crossorigin="anonymous"></script>#}
+{#{% endblock %}#}
