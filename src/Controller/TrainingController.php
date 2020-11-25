@@ -24,6 +24,10 @@ class TrainingController extends AbstractController
             return $this->redirectToRoute("home");
         } else {
             $file = 'exercices/mysql/'.$sujet. '/' . $sujet . '.json';
+            if(file_exists($file) === false) {
+                $this->addFlash("warning", "Le sujet n'est pas valide.");
+                return $this->redirectToRoute("home");
+            }
             $data = file_get_contents($file);
             $obj = json_decode($data, true);
 
