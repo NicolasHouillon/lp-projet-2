@@ -18,10 +18,24 @@
                     </div>
                     <div class="w-100 ml-2">
                         <h2>Choix d'une base de données</h2>
-                        <select name="" id="" class="custom-select">
-                            <option value="">MySQL</option>
-                            <option value="">PostgreSQL</option>
-                            <option value="">SQLite</option>
+                        <select name="database" id="database" class="custom-select">
+                            {% if app.request.get('db') == 'mysql' or app.request.get('db') == null %}
+                                <option selected value="mysql">MySQL</option>
+                            {% else %}
+                                <option value="mysql">MySQL</option>
+                            {% endif %}
+
+                            {% if app.request.get('db') == 'postgre' %}
+                                <option selected value="postgre">PostgreSQL</option>
+                            {% else %}
+                                <option value="postgre">PostgreSQL</option>
+                            {% endif %}
+
+                            {% if app.request.get('db') == 'sqlite' %}
+                                <option selected value="sqlite">SQLite</option>
+                            {% else %}
+                                <option value="sqlite">SQLite</option>
+                            {% endif %}
                         </select>
                     </div>
                     <div>
@@ -52,4 +66,11 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('training') }}
+    <script>
+        const database = document.getElementById('database')
+        database.addEventListener('change', () => {
+            const value = database.value
+            window.location.href = 'http://localhost:3000/?db=' + value
+        })
+    </script>
 {% endblock %}

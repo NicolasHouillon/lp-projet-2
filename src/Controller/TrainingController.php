@@ -18,6 +18,7 @@ class TrainingController extends AbstractController
     {
         $return = [];
         $sujet = $request->get('sujet');
+        $database = $request->get('database');
         if($sujet === null) {
             $this->addFlash("warning", "Vous devez choisir un sujet.");
             return $this->redirectToRoute("home");

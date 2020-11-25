@@ -28,6 +28,5 @@ const editor = CodeMirror.fromTextArea(textarea, {
     autofocus: true,
 })
 editor.setOption('theme', 'material')
-editor.setValue("\n".repeat(2))
 
 console.log(editor)
