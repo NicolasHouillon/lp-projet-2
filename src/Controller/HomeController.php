@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +17,11 @@ class HomeController extends AbstractController
     public function index(Request $request): Response
     {
         $db = $request->get('db') ?? 'mysql';
+        if(!in_array($db, ['mysql', 'postgre', 'sqlite'])) {
+            $this->addFlash("warning", "Vous ne pouvez utilser qu'une base de données MySQL, PostgreSQL ou SQLite.");
+            return $this->redirectToRoute("home");
+        }
+
         $dirs = scandir("exercices/" . $db);
         array_splice($dirs, 0, 2);
         $dirs = array_map(fn($dir) => ucfirst($dir), $dirs);
