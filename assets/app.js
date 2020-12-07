@@ -15,6 +15,7 @@ import './styles/app.scss'
 import $ from 'jquery';
 require('bootstrap')
 
+
 import 'codemirror/mode/sql/sql'
 import CodeMirror from 'codemirror/lib/codemirror'
 

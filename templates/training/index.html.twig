@@ -25,6 +25,7 @@
 
     <h2 class="mt-4">Votre requête</h2>
     <textarea class="form-control" id="request"></textarea>
+    <a class="btn btn-primary" id="valideRequest">Valider ma requête</a>
 
     {% include 'training/_your-responses.html.twig' %}
 
@@ -33,3 +34,7 @@
     {% include 'training/_comments.html.twig' %}
 
 {% endblock %}
+
+ {% block javascripts %}
+     {{ encore_entry_script_tags('training') }}
+ {% endblock %}
