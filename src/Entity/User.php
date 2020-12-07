@@ -57,6 +57,16 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $mariadb_user = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $mariadb_password = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,6 +150,30 @@ class User implements UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getMariadbUser(): ?string
+    {
+        return $this->mariadb_user;
+    }
+
+    public function setMariadbUser(?string $mariadb_user): self
+    {
+        $this->mariadb_user = $mariadb_user;
+
+        return $this;
+    }
+
+    public function getMariadbPassword(): ?string
+    {
+        return $this->mariadb_password;
+    }
+
+    public function setMariadbPassword(?string $mariadb_password): self
+    {
+        $this->mariadb_password = $mariadb_password;
 
         return $this;
     }
