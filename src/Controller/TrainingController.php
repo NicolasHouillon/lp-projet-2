@@ -23,7 +23,7 @@ class TrainingController extends AbstractController
             $this->addFlash("warning", "Vous devez choisir un sujet.");
             return $this->redirectToRoute("home");
         } else {
-            $file = 'exercices/mysql/'.$sujet. '/' . $sujet . '.json';
+            $file = 'exercices/'.strtolower($database).'/'.strtolower($sujet). '/' . strtolower($sujet) . '.json';
             if(file_exists($file) === false) {
                 $this->addFlash("warning", "Le sujet n'est pas valide.");
                 return $this->redirectToRoute("home");
@@ -37,4 +37,5 @@ class TrainingController extends AbstractController
 
         return $this->render('training/index.html.twig', $return);
     }
+
 }

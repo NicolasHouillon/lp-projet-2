@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,20 +16,14 @@ class HomeController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
-        $db = $request->get('db') ?? 'mysql';
-        if(!in_array($db, ['mysql', 'postgre', 'sqlite'])) {
-            $this->addFlash("warning", "Vous ne pouvez utilser qu'une base de données MySQL, PostgreSQL ou SQLite.");
-            return $this->redirectToRoute("home");
-        }
-
-        $dirs = scandir("exercices/" . $db);
+        $dirs = scandir("exercices/" );
         array_splice($dirs, 0, 2);
         $dirs = array_map(fn($dir) => ucfirst($dir), $dirs);
 
         return $this->render('home/index.html.twig',[
-            'sujets' => $dirs
+            'databases' => $dirs
         ]);
     }
 
@@ -45,6 +41,21 @@ class HomeController extends AbstractController
     public function team(): Response
     {
         return $this->render('home/team.html.twig');
+    }
+
+    /**
+     * @Route("/sujets", name="sujets", options={"expose"=true})
+     * @param Request $request
+     */
+    public function obtenirSujet(Request $request)
+    {
+        $database = $request->get('database');
+
+        $dirs = scandir("exercices/" . $database);
+        array_splice($dirs, 0, 2);
+        $dirs = array_map(fn($dir) => ucfirst($dir), $dirs);
+
+        return new JsonResponse($dirs);
     }
 
 }

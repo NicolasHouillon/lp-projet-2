@@ -41,7 +41,7 @@ services:
     build: 
       context: docker/php
     ports: 
-      - "9000:9000"
+      - "4000:9000"
     depends_on: 
       - mariadb
       - postgre
