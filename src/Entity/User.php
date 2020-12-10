@@ -67,6 +67,16 @@ class User implements UserInterface
      */
     private ?string $mariadb_password = null;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pgsql_user;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pgsql_password;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -174,6 +184,30 @@ class User implements UserInterface
     public function setMariadbPassword(?string $mariadb_password): self
     {
         $this->mariadb_password = $mariadb_password;
+
+        return $this;
+    }
+
+    public function getPgsqlUser(): ?string
+    {
+        return $this->pgsql_user;
+    }
+
+    public function setPgsqlUser(string $pgsql_user): self
+    {
+        $this->pgsql_user = $pgsql_user;
+
+        return $this;
+    }
+
+    public function getPgsqlPassword(): ?string
+    {
+        return $this->pgsql_password;
+    }
+
+    public function setPgsqlPassword(string $pgsql_password): self
+    {
+        $this->pgsql_password = $pgsql_password;
 
         return $this;
     }

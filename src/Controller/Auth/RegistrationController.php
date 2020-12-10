@@ -45,10 +45,12 @@ class RegistrationController extends AbstractController
             $user->setMariadbUser($username);
             $user->setMariadbPassword($password);
 
+            $user->setPgsqlUser($username);
+            $user->setPgsqlPassword($password);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             Database::onRegister($user);
 
