@@ -6,7 +6,7 @@
 
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h2>Choix d'un exercice du sujet {{ sujet }}</h2>
+            <h2>Choix d'un exercice du sujet {{ sujet }} avec {{ database }}</h2>
             <select name="exercice" id="" class="custom-select">
                 {% for key, value in exercices %}
                     <optgroup label="{{ key }}">
