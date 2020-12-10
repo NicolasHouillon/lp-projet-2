@@ -77,6 +77,11 @@ class User implements UserInterface
      */
     private $pgsql_password;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sqlite_path;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -208,6 +213,18 @@ class User implements UserInterface
     public function setPgsqlPassword(string $pgsql_password): self
     {
         $this->pgsql_password = $pgsql_password;
+
+        return $this;
+    }
+
+    public function getSqlitePath(): ?string
+    {
+        return $this->sqlite_path;
+    }
+
+    public function setSqlitePath(string $sqlite_path): self
+    {
+        $this->sqlite_path = $sqlite_path;
 
         return $this;
     }

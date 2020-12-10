@@ -1,5 +1,5 @@
 version: "3.8"
-services: 
+services:
   # Le service MySQL qui sert à stocker les base de données des utilisateurs
   mariadb:
     image: "mariadb:latest"

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Connector;
+namespace App\Database\Driver;
 
 use App\Entity\User;
 use PDO;

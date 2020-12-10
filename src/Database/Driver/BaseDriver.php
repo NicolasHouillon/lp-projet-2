@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Database\Connector;
+namespace App\Database\Driver;
 
 
 abstract class BaseDriver

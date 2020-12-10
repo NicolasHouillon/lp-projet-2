@@ -2,10 +2,10 @@
 
 namespace App\Database;
 
-use App\Database\Connector\BaseDriver;
-use App\Database\Connector\MySQLDriver;
-use App\Database\Connector\PostgreSQLDriver;
-use App\Database\Connector\SQLiteConnector;
+use App\Database\Driver\BaseDriver;
+use App\Database\Driver\MySQLDriver;
+use App\Database\Driver\PostgreSQLDriver;
+use App\Database\Driver\SQLiteConnector;
 use App\Entity\User;
 use InvalidArgumentException;
 
@@ -33,9 +33,9 @@ class Database
      */
     public static function onRegister(User $user): void {
         $dbs = [
-            new MySQLDriver($user),
+//            new MySQLDriver($user),
 //            new PostgreSQLDriver($user),
-//            new SQLiteConnector($user)
+            new SQLiteConnector($user)
         ];
 
         foreach ($dbs as $db) {

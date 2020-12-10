@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Database\Connector;
+namespace App\Database\Driver;
 
 use App\Entity\User;
+use Composer\Factory;
+use SQLite3;
 
 class SQLiteConnector extends BaseDriver
 {
@@ -17,12 +19,13 @@ class SQLiteConnector extends BaseDriver
 
     public function createUserAndDatabase()
     {
-        // TODO: Implement createRolesAndDatabase() method.
+        new SQLite3($this->user->getSqlitePath());
     }
 
     public function query(string $query): array
     {
-        // TODO: Implement query() method.
+        $sqlite = new SQLite3($this->user->getSqlitePath());
+        return $sqlite->query($query)->fetchArray(SQLITE3_ASSOC);
     }
 
     public function export()
