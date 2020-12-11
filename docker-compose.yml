@@ -1,5 +1,5 @@
 version: "3.8"
-services: 
+services:
   # Le service MySQL qui sert à stocker les base de données des utilisateurs
   mariadb:
     image: "mariadb:latest"
@@ -41,7 +41,7 @@ services:
     build: 
       context: docker/php
     ports: 
-      - "9000:9000"
+      - "4000:9000"
     depends_on: 
       - mariadb
       - postgre

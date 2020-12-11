@@ -24,7 +24,7 @@
           ,
           "questions" :
             {
-              "0": "Création de la table villes",
+              "0": "Création de la table garage",
               "1": "Création de la table habitations",
               "2": "Création de la table habitants",
               "3": "Insertion des villes",

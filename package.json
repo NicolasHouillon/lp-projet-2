@@ -21,6 +21,5 @@
     "dependencies": {
         "codemirror": "^5.58.3",
         "fos-routing": "^0.0.6"
-    },
-    "name": "lp-projet-2"
+    }
 }

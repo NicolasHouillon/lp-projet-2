@@ -60,6 +60,7 @@ class User implements UserInterface
     private $roles = [];
 
     /**
+
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="idUser")
      */
     private $comments;
@@ -72,6 +73,30 @@ class User implements UserInterface
     public function __toString() {
         return strval($this->id);
     }
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $mariadb_user = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $mariadb_password = null;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pgsql_user;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pgsql_password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sqlite_path;
 
     public function getId(): ?int
     {
@@ -174,7 +199,16 @@ class User implements UserInterface
             $this->comments[] = $comment;
             $comment->setIdUser($this);
         }
+    }
 
+    public function getMariadbUser(): ?string
+    {
+        return $this->mariadb_user;
+    }
+
+    public function setMariadbUser(?string $mariadb_user): self
+    {
+        $this->mariadb_user = $mariadb_user;
         return $this;
     }
 
@@ -186,7 +220,51 @@ class User implements UserInterface
                 $comment->setIdUser(null);
             }
         }
+    }
 
+    public function getMariadbPassword(): ?string
+    {
+        return $this->mariadb_password;
+    }
+
+    public function setMariadbPassword(?string $mariadb_password): self
+    {
+        $this->mariadb_password = $mariadb_password;
+        return $this;
+    }
+
+    public function getPgsqlUser(): ?string
+    {
+        return $this->pgsql_user;
+    }
+
+    public function setPgsqlUser(string $pgsql_user): self
+    {
+        $this->pgsql_user = $pgsql_user;
+
+        return $this;
+    }
+
+    public function getPgsqlPassword(): ?string
+    {
+        return $this->pgsql_password;
+    }
+
+    public function setPgsqlPassword(string $pgsql_password): self
+    {
+        $this->pgsql_password = $pgsql_password;
+
+        return $this;
+    }
+
+    public function getSqlitePath(): ?string
+    {
+        return $this->sqlite_path;
+    }
+
+    public function setSqlitePath(string $sqlite_path): self
+    {
+        $this->sqlite_path = $sqlite_path;
         return $this;
     }
 }

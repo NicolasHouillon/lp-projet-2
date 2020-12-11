@@ -2,9 +2,11 @@
 
 namespace App\Controller\Auth;
 
+use App\Database\Database;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Security\LoginAuthenticator;
+use PDOException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +40,21 @@ class RegistrationController extends AbstractController
             );
             $user->setRoles(['ROLE_USER']);
 
+            $username = str_replace(" ", "_", strtolower($user->getName()));
+            $password = $username . "_password";
+            $user->setMariadbUser($username);
+            $user->setMariadbPassword($password);
+
+            $user->setPgsqlUser($username);
+            $user->setPgsqlPassword($password);
+
+            $user->setSqlitePath($_SERVER['DOCUMENT_ROOT'] . "/sqlite/$username.db");
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+
+            Database::onRegister($user);
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

@@ -58,7 +58,7 @@
             {
               "0": "Selectionner tous les habitants",
               "1": "Selectionner les habitants dont le prenom est Eric",
-              "2": "Selectionner tous les habitants avec leur numemro de rue et leur rue",
+              "2": "Selectionner tous les habitants avec leur numéro de rue et leur rue",
               "3": "Selectionner toutes les villes par ordre inversé des codes postaux",
               "4": "Connaitre le nombre d'habitations par villes",
               "5": "Connaitre l'année de naissance de l'utilisateur Eric",

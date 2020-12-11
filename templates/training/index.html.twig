@@ -4,11 +4,9 @@
 
 {% block body %}
 
-    <h1 class="mb-5">Bienvenue sur le sujet {{ sujet }}</h1>
-
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h2>Choix d'un exercice</h2>
+            <h2>Choix d'un exercice du sujet {{ sujet }} avec {{ database }}</h2>
             <select name="exercice" id="" class="custom-select">
                 {% for key, value in exercices %}
                     <optgroup label="{{ key }}">
@@ -19,12 +17,17 @@
                 {% endfor %}
             </select>
         </div>
-        <a class="btn btn-primary" href="{{ path('home')}}">Retour à la liste des sujets</a>
+        <div>
+            <button class="btn btn-secondary" id="export">Exporter</button>
+            <button class="btn btn-secondary" id="import">Importer</button>
+            <a class="btn btn-primary" href="{{ path('home')}}">Retour à la liste des sujets</a>
+        </div>
     </div>
 
 
     <h2 class="mt-4">Votre requête</h2>
     <textarea class="form-control" id="request"></textarea>
+    <a class="btn btn-primary" id="valideRequest">Valider ma requête</a>
 
     {% include 'training/_your-responses.html.twig' %}
 
@@ -33,3 +36,7 @@
     {% include 'comment/index.html.twig' %}
 
 {% endblock %}
+
+ {% block javascripts %}
+     {{ encore_entry_script_tags('training') }}
+ {% endblock %}

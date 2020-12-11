@@ -8,36 +8,27 @@
         <div class="card">
             <div class="card-body">
                 <form action="{{ path('training')}}" class="d-flex" id="subject_form">
-                    <div class="w-100 mr-2">
-                        <h2>Choix d'un sujet</h2>
-                        <select name="sujet" id="" class="custom-select">
-                            {% for sujet in sujets %}
-                            <option value="{{ sujet }}">{{ sujet }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
                     <div class="w-100 ml-2">
                         <h2>Choix d'une base de données</h2>
-                        <select name="database" id="database" class="custom-select">
-                            {% if app.request.get('db') == 'mysql' or app.request.get('db') == null %}
-                                <option selected value="mysql">MySQL</option>
-                            {% else %}
-                                <option value="mysql">MySQL</option>
-                            {% endif %}
+                        <select name="database" id="database" class="custom-select">#}
+                            <optgroup label="Choisir une base de données">
+                            {% for database in databases %}#}
+                                    <option value="{{ database }}">{{ database }}</option>
+                                {% endfor %}
+                            </optgroup>
 
-                            {% if app.request.get('db') == 'postgre' %}
-                                <option selected value="postgre">PostgreSQL</option>
-                            {% else %}
-                                <option value="postgre">PostgreSQL</option>
-                            {% endif %}
-
-                            {% if app.request.get('db') == 'sqlite' %}
-                                <option selected value="sqlite">SQLite</option>
-                            {% else %}
-                                <option value="sqlite">SQLite</option>
-                            {% endif %}
                         </select>
                     </div>
+
+                    <div class="w-100 mr-2">
+                        <h2>Choix d'un sujet</h2>
+                        <select name="sujet" id="sujet" class="custom-select">
+                            <optgroup label="Choisir un sujet">
+
+                            </optgroup>
+                        </select>
+                    </div>
+
                     <div>
                         <button type="submit" class="mt-4 btn btn-lg btn-primary" >Valider</button>
                     </div>
@@ -64,13 +55,6 @@
     {% endif %}
 {% endblock %}
 
-{% block javascripts %}
-    {{ encore_entry_script_tags('training') }}
-    <script>
-        const database = document.getElementById('database')
-        database.addEventListener('change', () => {
-            const value = database.value
-            window.location.href = 'http://localhost:3000/?db=' + value
-        })
-    </script>
-{% endblock %}
+ {% block javascripts %}
+     {{ encore_entry_script_tags('home') }}
+ {% endblock %}
