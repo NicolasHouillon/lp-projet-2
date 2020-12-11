@@ -33,6 +33,11 @@ class Comment
      */
     private $content;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $id_question;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class Comment
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getIdQuestion(): ?int
+    {
+        return $this->id_question;
+    }
+
+    public function setIdQuestion(int $id_question): self
+    {
+        $this->id_question = $id_question;
 
         return $this;
     }

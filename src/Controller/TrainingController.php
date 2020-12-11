@@ -16,11 +16,10 @@ class TrainingController extends AbstractController
      * @param CommentRepository $commentRepository
      * @return Response
      */
-    public function index(Request $request,CommentRepository $commentRepository): Response
+    public function index(Request $request, CommentRepository $commentRepository): Response
     {
         $return = [];
         $sujet = $request->get('sujet');
-        $database = $request->get('database');
         if($sujet === null) {
             $this->addFlash("warning", "Vous devez choisir un sujet.");
             return $this->redirectToRoute("home");
@@ -35,9 +34,8 @@ class TrainingController extends AbstractController
 
             $return["sujet"] = $sujet;
             $return["exercices"] = $obj['exercices'];
+            $return["comments"] = $commentRepository->findAll();
         }
-
-        $return['comments'] = $commentRepository->findAll();
         return $this->render('training/index.html.twig', $return);
     }
 }

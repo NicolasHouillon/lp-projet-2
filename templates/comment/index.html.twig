@@ -1,5 +1,7 @@
 <h2 class="mt-4">Commentaires</h2>
-{%  if comments is defined %}
+{%  if comments is empty %}
+        <span colspan="4">no records found</span>
+{% else %}
         {% for comment in comments %}
                 <div class="bg-white p-3 mb-2 rounded-sm shadow">
                         <h5 class="text-uppercase font-weight-bold">{{ comment.id }}</h5>
@@ -9,8 +11,4 @@
                         <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
                 </div>
         {% endfor %}
-{% else %}
-        <span colspan="4">no records found</span>
 {% endif %}
-
-<a href="{{ path('comment_new') }}">Create new</a>
