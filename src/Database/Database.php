@@ -33,7 +33,7 @@ class Database
      */
     public static function onRegister(User $user): void {
         $dbs = [
-//            new MySQLDriver($user),
+            new MySQLDriver($user),
 //            new PostgreSQLDriver($user),
             new SQLiteConnector($user)
         ];

@@ -21,7 +21,7 @@ class MySQLDriver extends BaseDriver
     {
         $host = $this->fullHost;
         try {
-            $pdo = new PDO("mysql:host=" . $host, 'root', 'root');
+            $pdo = new PDO("mysql:host=$host", 'root', 'root');
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit(1);
@@ -30,9 +30,10 @@ class MySQLDriver extends BaseDriver
         if ($pdo !== null) {
             $user = $this->user->getMariadbUser();
             $password = $this->user->getMariadbPassword();
-            $pdo->query("CREATE USER '" . $user . "'@'" . $host . "' IDENTIFIED BY ' " . $password . "';");
-            $pdo->query("CREATE DATABASE " . $user);
-            $pdo->query("GRANT ALL PRIVILEGES ON " . $user . ".* TO '" . $user . "'@'" . $host . "' IDENTIFIED BY '" . $password . "';");
+            $h = $this->host;
+            $pdo->query("CREATE USER '$user'@'$h' IDENTIFIED BY '$password';");
+            $pdo->query("CREATE DATABASE $user");
+            $pdo->query("GRANT ALL PRIVILEGES ON $user.* TO '$user'@'$h' IDENTIFIED BY '$password';");
         }
     }
 
@@ -49,6 +50,8 @@ class MySQLDriver extends BaseDriver
         if ($pdo !== null) {
             return $pdo->query($query)->fetchAll();
         }
+
+        return [];
     }
 
     public function export()

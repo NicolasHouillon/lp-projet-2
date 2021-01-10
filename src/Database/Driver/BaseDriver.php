@@ -13,7 +13,7 @@ abstract class BaseDriver
     public function __construct()
     {
         $this->host = $_ENV['DB_HOST'];
-        $this->fullHost = $this->host . ":8000;charset=utf8";
+        $this->fullHost = $this->host . ":3306;charset=utf8";
     }
 
     abstract public function createUserAndDatabase();

@@ -46,7 +46,7 @@ services:
       - mariadb
       - postgre
     volumes: 
-      - .:/var/www/html:cached
+      - .:/var/www/html
     networks: 
       - symfony
 
