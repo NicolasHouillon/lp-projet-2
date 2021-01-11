@@ -16,18 +16,4 @@ import $ from 'jquery';
 require('bootstrap')
 
 
-import 'codemirror/mode/sql/sql'
-import CodeMirror from 'codemirror/lib/codemirror'
 
-const textarea = document.getElementById('request')
-const editor = CodeMirror.fromTextArea(textarea, {
-    mode: 'text/x-sql',
-    lineNumbers: true,
-    indentWithTabs: true,
-    smartIndent: true,
-    matchBrackets : true,
-    autofocus: true,
-})
-editor.setOption('theme', 'material')
-
-console.log(editor)

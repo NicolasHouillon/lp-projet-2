@@ -35,11 +35,6 @@ class PostgreSQLDriver extends BaseDriver
         }
     }
 
-    public function query(string $query): array
-    {
-        // TODO: Implement query() method.
-    }
-
     public function export()
     {
         // TODO: Implement export() method.
@@ -50,4 +45,13 @@ class PostgreSQLDriver extends BaseDriver
         // TODO: Implement import() method.
     }
 
+    public function createQuery(string $query)
+    {
+        // TODO: Implement createQuery() method.
+    }
+
+    public function requestQuery(string $query)
+    {
+        // TODO: Implement requestQuery() method.
+    }
 }

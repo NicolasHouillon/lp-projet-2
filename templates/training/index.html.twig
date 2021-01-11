@@ -27,7 +27,7 @@
 
     <h2 class="mt-4">Votre requête</h2>
     <textarea class="form-control" id="request"></textarea>
-    <a class="btn btn-primary" id="valideRequest">Valider ma requête</a>
+    <a class="btn btn-primary" id="valideRequest" database="{{ database}}" user="{{ user }}">Valider ma requête</a>
 
     {% include 'training/_your-responses.html.twig' %}
 

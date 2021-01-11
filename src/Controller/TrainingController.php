@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Database\Database;
+use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
 use PDO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +41,9 @@ class TrainingController extends AbstractController
             $return["sujet"] = $sujet;
             $return["exercices"] = $obj['exercices'];
             $return["comments"] = $commentRepository->findAll();
+            $return["user"] = $this->getUser();
         }
+
         return $this->render('training/index.html.twig', $return);
     }
 
@@ -48,17 +52,17 @@ class TrainingController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function requete(Request $request): Response
+    public function requete(Request $request, UserRepository $userRepository): Response
     {
         $requete = $request->get('requete');
+        $db = $request->get('database');
+        $user = $userRepository->find($request->get('user'));
 
-        $connexion = new PDO("mysql:host=192.168.1.4:6000;dbname=projet_lp_2", "root", "root");
+        $connexion = new Database(strtolower($db), $user);
 
+        $resultat = $connexion->requestQuery($requete);
 
-        $resultat = $connexion->query($requete);
-
-
-        return new JsonResponse($resultat->fetch());
+        return new JsonResponse([$resultat, $user]);
     }
 
 }

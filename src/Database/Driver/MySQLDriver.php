@@ -37,7 +37,23 @@ class MySQLDriver extends BaseDriver
         }
     }
 
-    public function query(string $query): array
+
+    public function export()
+    {
+        // TODO: Implement export() method.
+    }
+
+    public function import()
+    {
+        // TODO: Implement import() method.
+    }
+
+    public function createQuery(string $query)
+    {
+        // TODO: Implement createQuery() method.
+    }
+
+    public function requestQuery(string $query)
     {
         $host = $this->fullHost;
         try {
@@ -53,15 +69,4 @@ class MySQLDriver extends BaseDriver
 
         return [];
     }
-
-    public function export()
-    {
-        // TODO: Implement export() method.
-    }
-
-    public function import()
-    {
-        // TODO: Implement import() method.
-    }
-
 }

@@ -44,15 +44,29 @@ class Database
         }
     }
 
-    public function query(string $query): array
+    public function createQuery(string $query): array
     {
         switch ($this->db) {
             case "mysql":
-                return $this->msConnector->query($query);
+                return $this->msConnector->createQuery($query);
             case "postgre":
-                return $this->pgConnector->query($query);
+                return $this->pgConnector->createQuery($query);
             case "sqlite":
-                return $this->sqConnector->query($query);
+                return $this->sqConnector->createQuery($query);
+            default:
+                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite");
+        }
+    }
+
+    public function requestQuery(string $query): array
+    {
+        switch ($this->db) {
+            case "mysql":
+                return $this->msConnector->requestQuery($query);
+            case "postgre":
+                return $this->pgConnector->requestQuery($query);
+            case "sqlite":
+                return $this->sqConnector->requestQuery($query);
             default:
                 throw new InvalidArgumentException("Database should be mysql, postgre or sqlite");
         }

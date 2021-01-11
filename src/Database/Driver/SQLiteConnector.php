@@ -22,12 +22,6 @@ class SQLiteConnector extends BaseDriver
         new SQLite3($this->user->getSqlitePath());
     }
 
-    public function query(string $query): array
-    {
-        $sqlite = new SQLite3($this->user->getSqlitePath());
-        return $sqlite->query($query)->fetchArray(SQLITE3_ASSOC);
-    }
-
     public function export()
     {
         // TODO: Implement export() method.
@@ -38,4 +32,14 @@ class SQLiteConnector extends BaseDriver
         // TODO: Implement import() method.
     }
 
+    public function createQuery(string $query)
+    {
+        // TODO: Implement createQuery() method.
+    }
+
+    public function requestQuery(string $query)
+    {
+        $sqlite = new SQLite3($this->user->getSqlitePath());
+        return $sqlite->query($query)->fetchArray(SQLITE3_ASSOC);
+    }
 }
