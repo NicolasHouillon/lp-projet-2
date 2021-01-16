@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
             $user->setPgsqlUser($username);
             $user->setPgsqlPassword($password);
 
-            $user->setSqlitePath($_SERVER['DOCUMENT_ROOT'] . "/sqlite/$username.db");
+            $user->setSqlitePath($_SERVER['DOCUMENT_ROOT'] . "sqlite/$username.db");
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

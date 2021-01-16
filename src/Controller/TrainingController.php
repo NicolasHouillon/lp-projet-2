@@ -41,7 +41,6 @@ class TrainingController extends AbstractController
             $return["sujet"] = $sujet;
             $return["exercices"] = $obj['exercices'];
             $return["comments"] = $commentRepository->findAll();
-            $return["user"] = $this->getUser();
         }
 
         return $this->render('training/index.html.twig', $return);
@@ -52,17 +51,46 @@ class TrainingController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function requete(Request $request, UserRepository $userRepository): Response
+    public function requete(Request $request): Response
     {
         $requete = $request->get('requete');
         $db = $request->get('database');
-        $user = $userRepository->find($request->get('user'));
 
-        $connexion = new Database(strtolower($db), $user);
+        $connexion = new Database(strtolower($db), $this->getUser());
 
         $resultat = $connexion->requestQuery($requete);
 
-        return new JsonResponse([$resultat, $user]);
+        return new JsonResponse($resultat);
+    }
+
+    /**
+     * @Route("/training/solution", name="solution", options={"expose"=true})
+     * @param Request $request
+     * @return Response
+     */
+    public function solution(Request $request): Response
+    {
+        $db = $request->get('database');
+        $sujet = $request->get('sujet');
+        $question = $request->get('question');
+        $sousSujet = $request->get('sousSujet');
+        $file = 'exercices/'.strtolower($db).'/'.strtolower($sujet). '/' . strtolower($sujet) . '.json';
+
+        if(file_exists($file) === true) {
+            $data = file_get_contents($file);
+            $obj = json_decode($data, true);
+            $key = array_search($question, $obj['exercices'][$sousSujet]['questions']);
+            if ($key !== false) {
+                $requete = $obj['exercices'][$sousSujet]['requetes'][$key];
+
+                $connexion = new Database(strtolower($db), $this->getUser());
+
+                $resultat = $connexion->requestQuery($requete);
+
+                return new JsonResponse($resultat);
+            }
+        }
+        return new JsonResponse();
     }
 
 }
