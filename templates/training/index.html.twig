@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h2>Choix d'un exercice du sujet {{ sujet }} avec {{ database }}</h2>
-            <select name="exercice" id="" class="custom-select">
+            <select name="exercice" id="exercice" class="custom-select">
                 {% for key, value in exercices %}
                     <optgroup label="{{ key }}">
                         {% for exercice in value.questions %}
@@ -27,11 +27,16 @@
 
     <h2 class="mt-4">Votre requête</h2>
     <textarea class="form-control" id="request"></textarea>
-    <a class="btn btn-primary" id="valideRequest" database="{{ database}}" user="{{ user }}">Valider ma requête</a>
+    <a class="btn btn-primary" id="valideRequest" database="{{ database}}" sujet="{{ sujet }}">Valider ma requête</a>
 
-    {% include 'training/_your-responses.html.twig' %}
+    <h2 class="mt-4">Vos réponses</h2>
+        <table class="table shadow" id="responses">
+        </table>
 
-    {% include 'training/_requested-responses.html.twig' %}
+    <h2 class="mt-4">Réponses attendues</h2>
+        <table class="table shadow" id="requested">
+        </table>
+
 
     {% include 'comment/index.html.twig' %}
 
