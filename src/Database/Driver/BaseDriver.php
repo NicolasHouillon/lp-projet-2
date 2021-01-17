@@ -19,6 +19,7 @@ abstract class BaseDriver
     abstract public function createUserAndDatabase();
     abstract public function createQuery(string $query);
     abstract public function requestQuery(string $query);
+    abstract public function suppression();
     abstract public function export();
     abstract public function import();
 

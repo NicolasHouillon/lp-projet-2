@@ -36,7 +36,10 @@ class MySQLDriver extends BaseDriver
 //            dd($pdo, $user, $password, $h);
             $pdo->query("CREATE USER '$user'@'$h' IDENTIFIED BY '$password';");
             $pdo->query("CREATE DATABASE $user");
-            $pdo->query("GRANT ALL PRIVILEGES ON $user.* TO '$user'@'$h' IDENTIFIED BY '$password';");
+            $pdo->query("GRANT ALL ON $user.* TO '$user'@'$h';");
+            $pdo->query("GRANT SELECT ON projet_lp_2.* TO '$user'@'$h';");
+
+
         }
     }
 
@@ -53,7 +56,24 @@ class MySQLDriver extends BaseDriver
 
     public function createQuery(string $query)
     {
-        // TODO: Implement createQuery() method.
+        $host = $this->fullHost;
+        try {
+            $pdo = new PDO("mysql:dbname=".$this->user->getMariadbUser().";host=" . $host, $this->user->getMariadbUser(), $this->user->getMariadbPassword());
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit(1);
+        }
+
+        if ($pdo !== null) {
+            $result = $pdo->prepare($query);
+            $result->execute();
+//            return [$pdo, $result->errorInfo()];
+            if ($result !== false) {
+//                return [$result];
+                return $result->errorInfo();
+            }
+        }
+        return [];
     }
 
     public function requestQuery(string $query)
@@ -77,5 +97,23 @@ class MySQLDriver extends BaseDriver
         }
 
         return [];
+    }
+
+    public function suppression()
+    {
+        $host = $this->fullHost;
+        try {
+            $pdo = new PDO("mysql:dbname=".$this->user->getMariadbUser().";host=" . $host, $this->user->getMariadbUser(), $this->user->getMariadbPassword());
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit(1);
+        }
+        $result = $pdo->prepare('DROP DATABASE '.$this->user->getMariadbUser());
+        $result->execute();
+
+        $result = $pdo->prepare('CREATE DATABASE '.$this->user->getMariadbUser());
+        $result->execute();
+
+        return $result->errorInfo();
     }
 }

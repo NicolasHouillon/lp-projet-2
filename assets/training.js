@@ -58,7 +58,7 @@ $("#valideRequest").click(function(e){
             data : {
                 'requete' : rq,
                 'database' : db,
-                'sujet': sujet,
+                'sousSujet' : sousSujet,
             },
             datatype : 'json',
             success : function(data){
@@ -66,7 +66,9 @@ $("#valideRequest").click(function(e){
                 let reponse = document.getElementById('responses');
                 console.log(data);
                 console.log("test " + question)
-                if (Array.isArray(data) === true && isEmpty(data)===false) {
+                if (Array.isArray(data) === true && isEmpty(data)===false && sousSujet === "Requête") {
+                    let table = document.createElement('table');
+                    table.setAttribute('class', 'table shadow')
                     let thead = document.createElement('thead');
                     thead.setAttribute('class', "thead-dark")
                     let tr = document.createElement('tr');
@@ -76,7 +78,7 @@ $("#valideRequest").click(function(e){
                         tr.append(th);
                         thead.append(tr)
                     })
-                    reponse.append(thead)
+                    table.append(thead)
 
                     data.forEach(function (x) {
                         let tbody = document.createElement('tbody');
@@ -87,55 +89,93 @@ $("#valideRequest").click(function(e){
                             tr.append(td);
                             tbody.append(tr)
                         })
-                        reponse.append(tbody)
+                        table.append(tbody)
                     })
+                    reponse.append(table)
+                }
+                else {
+                    if (data[2] === null) {
+                        reponse.append("Requête validée")
+                    }
+                    else {
+                        reponse.append(data[2])
+                    }
                 }
 
             }
         }
     )
-    $.ajax({
-        url: Routing.generate('solution'),
-        type: 'GET',
-        data: {
-            'sujet': sujet,
-            'database': db,
-            'sousSujet' : sousSujet,
-            'question' : question
-        },
-        datatype: 'json',
-        success: function (data) {
-            $('#requested').empty();
-            let reponseAttendu = document.getElementById('requested');
-            console.log(data);
-            console.log("test " + question)
-            if (Array.isArray(data) === true && isEmpty(data) ===false) {
-
-                let thead = document.createElement('thead');
-                thead.setAttribute('class', "thead-dark")
-                let tr = document.createElement('tr');
-                Object.entries(data[0]).forEach(function ([key, value]) {
-                    let th = document.createElement('th');
-                    th.innerText = key.toString();
-                    tr.append(th);
-                    thead.append(tr)
-                })
-                reponseAttendu.append(thead)
-
-                data.forEach(function (x) {
-                    let tbody = document.createElement('tbody');
-                    let tr = document.createElement('tr');
-                    Object.entries(x).forEach(function ([key, value]) {
-                        let td = document.createElement('td');
-                        td.innerText = value.toString();
-                        tr.append(td);
-                        tbody.append(tr)
-                    })
-                    reponseAttendu.append(tbody)
-                })
-            }
-        }
-    })
 })
 
+$("#supression").click(function(e){
+    e.preventDefault();
+    let resultat = confirm('Voulez vous vraiment supprimer votre base de données ?')
+    if (resultat === true) {
+        $.ajax({
+            url : Routing.generate('supression'),
+            type : 'GET',
+            data : {
+                'database' : db,
+            },
+            datatype : 'json',
+            success : function(data){
+                alert('Votre base de données a bien était supprimée')
+            }
+        })
+    }
+})
+
+$("#voirReponse").click(function(e){
+    e.preventDefault();
+    let resultat = confirm('Voulez vous vraiment voir la réponse ?')
+    if (resultat === true) {
+        $.ajax({
+            url: Routing.generate('solution'),
+            type: 'GET',
+            data: {
+                'sujet': sujet,
+                'database': db,
+                'sousSujet' : sousSujet,
+                'question' : question
+            },
+            datatype: 'json',
+            success: function (data) {
+                $('#requested').empty();
+                let reponseAttendu = document.getElementById('requested' );
+                if (Array.isArray(data) === true && isEmpty(data) ===false && sousSujet === "Requête") {
+                    let table = document.createElement('table')
+                    table.setAttribute('class', 'table shadow')
+                    let thead = document.createElement('thead');
+                    thead.setAttribute('class', "thead-dark")
+                    let tr = document.createElement('tr');
+                    Object.entries(data[0]).forEach(function ([key, value]) {
+                        let th = document.createElement('th');
+                        th.innerText = key.toString();
+                        tr.append(th);
+                        thead.append(tr)
+                    })
+                    table.append(thead)
+
+                    data.forEach(function (x) {
+                        let tbody = document.createElement('tbody');
+                        let tr = document.createElement('tr');
+                        Object.entries(x).forEach(function ([key, value]) {
+                            let td = document.createElement('td');
+                            td.innerText = value.toString();
+                            tr.append(td);
+                            tbody.append(tr)
+                        })
+                        table.append(tbody)
+                    })
+
+                    reponseAttendu.append(table)
+                }
+                else {
+                    reponseAttendu.append(data)
+                }
+
+            }
+        })
+    }
+})
 

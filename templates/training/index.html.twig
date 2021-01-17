@@ -24,18 +24,30 @@
         </div>
     </div>
 
+    <div>
+        <h2>Consigne</h2>
+        <p>Vous devez effectuer les rêquetes de création et d'insertion dans l'ordre donné.
+        <br>Vous pouvez effectuer les rêquetes de questionnement dans l'ordre voulu.</p>
+    </div>
+
+    <div id="options">
+        <button class="btn btn-secondary" id="supression">Supprimer ma base de données</button>
+    </div>
+
+
 
     <h2 class="mt-4">Votre requête</h2>
     <textarea class="form-control" id="request"></textarea>
     <a class="btn btn-primary" id="valideRequest" database="{{ database}}" sujet="{{ sujet }}">Valider ma requête</a>
 
-    <h2 class="mt-4">Vos réponses</h2>
-        <table class="table shadow" id="responses">
-        </table>
+    <h2 class="mt-4" >Vos réponses</h2>
+    <div id="responses"></div>
+
 
     <h2 class="mt-4">Réponses attendues</h2>
-        <table class="table shadow" id="requested">
-        </table>
+    <button class="btn btn-secondary" id="voirReponse">Voir la réponse</button>
+    <div id="requested"></div>
+
 
 
     {% include 'comment/index.html.twig' %}

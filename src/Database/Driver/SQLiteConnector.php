@@ -42,4 +42,9 @@ class SQLiteConnector extends BaseDriver
         $sqlite = new SQLite3($this->user->getSqlitePath());
         return $sqlite->query($query)->fetchArray(SQLITE3_ASSOC);
     }
+
+    public function suppression()
+    {
+        // TODO: Implement suppression() method.
+    }
 }

@@ -54,4 +54,9 @@ class PostgreSQLDriver extends BaseDriver
     {
         // TODO: Implement requestQuery() method.
     }
+
+    public function suppression()
+    {
+        // TODO: Implement suppression() method.
+    }
 }

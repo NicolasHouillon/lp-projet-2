@@ -6,16 +6,24 @@ use App\Database\Database;
 use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
 use PDO;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/training")
+ *
+ * @IsGranted("ROLE_USER")
+ *
+ */
+
 class TrainingController extends AbstractController
 {
     /**
-     * @Route("/training", name="training")
+     * @Route("/", name="training")
      * @param Request $request
      * @param CommentRepository $commentRepository
      * @return Response
@@ -47,7 +55,7 @@ class TrainingController extends AbstractController
     }
 
     /**
-     * @Route("/training/requete", name="requete", options={"expose"=true})
+     * @Route("/requete", name="requete", options={"expose"=true})
      * @param Request $request
      * @return Response
      */
@@ -55,16 +63,23 @@ class TrainingController extends AbstractController
     {
         $requete = $request->get('requete');
         $db = $request->get('database');
+        $sousSujet = $request->get('sousSujet');
 
         $connexion = new Database(strtolower($db), $this->getUser());
 
-        $resultat = $connexion->requestQuery($requete);
+        if ($sousSujet === "Création et modification de table") {
+
+            $resultat = $connexion->createQuery($requete);
+        }
+        if ($sousSujet === "Requête"){
+            $resultat = $connexion->requestQuery($requete);
+        }
 
         return new JsonResponse($resultat);
     }
 
     /**
-     * @Route("/training/solution", name="solution", options={"expose"=true})
+     * @Route("/solution", name="solution", options={"expose"=true})
      * @param Request $request
      * @return Response
      */
@@ -80,17 +95,41 @@ class TrainingController extends AbstractController
             $data = file_get_contents($file);
             $obj = json_decode($data, true);
             $key = array_search($question, $obj['exercices'][$sousSujet]['questions']);
+
             if ($key !== false) {
                 $requete = $obj['exercices'][$sousSujet]['requetes'][$key];
 
-                $connexion = new Database(strtolower($db), $this->getUser());
+                if ($sousSujet === "Requête"){
+                    $connexion = new Database(strtolower($db), $this->getUser());
 
-                $resultat = $connexion->requestQuery($requete);
+                    $resultat = $connexion->requestQuery($requete);
+                }
+                if ($sousSujet === "Création et modification de table") {
+
+                    $resultat = $requete;
+                }
 
                 return new JsonResponse($resultat);
             }
         }
         return new JsonResponse();
+    }
+
+    /**
+     * @Route("/suppression", name="supression", options={"expose"=true})
+     * @param Request $request
+     * @return Response
+     */
+    public function suppressionBDD(Request $request): Response
+    {
+        $db = $request->get('database');
+
+        $connexion = new Database(strtolower($db), $this->getUser());
+
+        $resultat = $connexion->suppression();
+
+
+        return new JsonResponse($resultat);
     }
 
 }

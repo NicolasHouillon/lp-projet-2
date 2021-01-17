@@ -72,4 +72,18 @@ class Database
         }
     }
 
+    public function suppression()
+    {
+        switch ($this->db) {
+            case "mysql":
+                return $this->msConnector->suppression();
+            case "postgre":
+                return $this->pgConnector->suppression();
+            case "sqlite":
+                return $this->sqConnector->suppression();
+            default:
+                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite");
+        }
+    }
+
 }
