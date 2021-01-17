@@ -43,7 +43,9 @@ class MySQLDriver extends BaseDriver
 
     public function export()
     {
-        // TODO: Implement export() method.
+        $username = $this->user->getMariadbUser();
+        $password = $this->user->getMariadbPassword();
+        system("mysql -u$username -p$password $username > $username.dump.sql");
     }
 
     public function import()

@@ -72,4 +72,21 @@ class Database
         }
     }
 
+    public function export()
+    {
+        switch ($this->db) {
+            case "mysql":
+                $this->msConnector->export();
+                break;
+            case "postgre":
+                $this->pgConnector->export();
+                break;
+            case "sqlite":
+                $this->sqConnector->export();
+                break;
+            default:
+                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite but get " . $this->db);
+        }
+    }
+
 }
