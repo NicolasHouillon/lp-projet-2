@@ -3,15 +3,18 @@
 namespace App\Controller;
 
 use App\Database\Database;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
 use PDO;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -136,16 +139,20 @@ class TrainingController extends AbstractController
 
     /**
      * @Route("/export", name="training_export", options={"expose"=true})
-     * @return JsonResponse
+     * @return BinaryFileResponse
      */
-    public function export(): JsonResponse
+    public function export(): BinaryFileResponse
     {
         $database = new Database('mysql', $this->getUser());
         $database->export();
 
-        return new JsonResponse([
-            'message' => "Les données ont bien étés exportées."
-        ], 200);
+        /** @var User $user */
+        $user = $this->getUser();
+        $username = $user->getMariadbUser();
+        $response = new BinaryFileResponse("$username.dump.sql");
+        $response->headers->set('Content-Type','text/sql');
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT,"$username.dump.sql");
+        return $response;
     }
 
 }

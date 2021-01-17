@@ -178,23 +178,3 @@ $("#voirReponse").click(function(e){
         })
     }
 })
-
-$("#export-button").click(function(e){
-        e.preventDefault()
-
-    e.preventDefault();
-    let resultat = confirm('Voulez vous vraiment exporter votre base de données ?')
-    if (resultat === true) {
-        $.ajax({
-            url: Routing.generate('training_export'),
-            type: 'GET',
-            datatype: 'json',
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (err) {
-                console.error(err)
-            }
-        })
-    }
-})
