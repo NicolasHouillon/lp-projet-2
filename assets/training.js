@@ -59,12 +59,7 @@ $("#valideRequest").click(function (e) {
                 'requete': rq,
                 'database': db,
                 'sujet': sujet,
-            url : Routing.generate('requete'),
-            type : 'GET',
-            data : {
-                'requete' : rq,
-                'database' : db,
-                'sousSujet' : sousSujet,
+                'sousSujet' : sousSujet
             },
             datatype: 'json',
             success: function (data) {
@@ -72,7 +67,6 @@ $("#valideRequest").click(function (e) {
                 let reponse = document.getElementById('responses');
                 console.log(data);
                 console.log("test " + question)
-                if (Array.isArray(data) === true && isEmpty(data) === false) {
                 if (Array.isArray(data) === true && isEmpty(data)===false && sousSujet === "Requête") {
                     let table = document.createElement('table');
                     table.setAttribute('class', 'table shadow')
@@ -108,7 +102,6 @@ $("#valideRequest").click(function (e) {
                         reponse.append(data[2])
                     }
                 }
-
             }
         }
     )
@@ -186,10 +179,12 @@ $("#voirReponse").click(function(e){
     }
 })
 
-document
-    .getElementById('export-button')
-    .addEventListener('click', (e) => {
+$("#export-button").click(function(e){
         e.preventDefault()
+
+    e.preventDefault();
+    let resultat = confirm('Voulez vous vraiment exporter votre base de données ?')
+    if (resultat === true) {
         $.ajax({
             url: Routing.generate('training_export'),
             type: 'GET',
@@ -201,4 +196,5 @@ document
                 console.error(err)
             }
         })
-    })
+    }
+})
