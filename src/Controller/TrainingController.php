@@ -6,12 +6,18 @@ use App\Database\Database;
 use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
 use PDO;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @IsGranted("ROLE_USER")
+ * Class TrainingController
+ * @package App\Controller
+ */
 class TrainingController extends AbstractController
 {
     /**
@@ -56,13 +62,14 @@ class TrainingController extends AbstractController
     {
         $requete = $request->get('requete');
         $db = $request->get('database');
-        $user = $userRepository->find($request->get('user'));
+        dd($db);
 
+        $user = $this->getUser();
         $connexion = new Database(strtolower($db), $user);
 
         $resultat = $connexion->requestQuery($requete);
 
-        return new JsonResponse([$resultat, $user]);
+        return new JsonResponse(["resultat" => $resultat]);
     }
 
 }

@@ -21,7 +21,7 @@ class MySQLDriver extends BaseDriver
     {
         $host = $this->fullHost;
         try {
-            $pdo = new PDO("mysql:host=$host", 'root', 'root');
+            $pdo = new PDO("mysql:host=$host", $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit(1);

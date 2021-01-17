@@ -54,7 +54,7 @@ class Database
             case "sqlite":
                 return $this->sqConnector->createQuery($query);
             default:
-                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite");
+                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite but get " . $this->db);
         }
     }
 
@@ -68,7 +68,7 @@ class Database
             case "sqlite":
                 return $this->sqConnector->requestQuery($query);
             default:
-                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite");
+                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite but get " . $this->db);
         }
     }
 
