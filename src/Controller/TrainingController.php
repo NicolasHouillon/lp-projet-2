@@ -6,18 +6,12 @@ use App\Database\Database;
 use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
 use PDO;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @IsGranted("ROLE_USER")
- * Class TrainingController
- * @package App\Controller
- */
 class TrainingController extends AbstractController
 {
     /**
@@ -47,7 +41,6 @@ class TrainingController extends AbstractController
             $return["sujet"] = $sujet;
             $return["exercices"] = $obj['exercices'];
             $return["comments"] = $commentRepository->findAll();
-            $return["user"] = $this->getUser();
         }
 
         return $this->render('training/index.html.twig', $return);
@@ -58,18 +51,46 @@ class TrainingController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function requete(Request $request, UserRepository $userRepository): Response
+    public function requete(Request $request): Response
     {
         $requete = $request->get('requete');
         $db = $request->get('database');
-        dd($db);
 
-        $user = $this->getUser();
-        $connexion = new Database(strtolower($db), $user);
+        $connexion = new Database(strtolower($db), $this->getUser());
 
         $resultat = $connexion->requestQuery($requete);
 
-        return new JsonResponse(["resultat" => $resultat]);
+        return new JsonResponse($resultat);
+    }
+
+    /**
+     * @Route("/training/solution", name="solution", options={"expose"=true})
+     * @param Request $request
+     * @return Response
+     */
+    public function solution(Request $request): Response
+    {
+        $db = $request->get('database');
+        $sujet = $request->get('sujet');
+        $question = $request->get('question');
+        $sousSujet = $request->get('sousSujet');
+        $file = 'exercices/'.strtolower($db).'/'.strtolower($sujet). '/' . strtolower($sujet) . '.json';
+
+        if(file_exists($file) === true) {
+            $data = file_get_contents($file);
+            $obj = json_decode($data, true);
+            $key = array_search($question, $obj['exercices'][$sousSujet]['questions']);
+            if ($key !== false) {
+                $requete = $obj['exercices'][$sousSujet]['requetes'][$key];
+
+                $connexion = new Database(strtolower($db), $this->getUser());
+
+                $resultat = $connexion->requestQuery($requete);
+
+                return new JsonResponse($resultat);
+            }
+        }
+        return new JsonResponse();
     }
 
 }

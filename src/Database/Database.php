@@ -58,7 +58,7 @@ class Database
         }
     }
 
-    public function requestQuery(string $query): array
+    public function requestQuery(string $query)
     {
         switch ($this->db) {
             case "mysql":
