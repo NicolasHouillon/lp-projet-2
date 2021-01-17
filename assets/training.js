@@ -22,7 +22,7 @@ const editor = CodeMirror.fromTextArea(textarea, {
     lineNumbers: true,
     indentWithTabs: true,
     smartIndent: true,
-    matchBrackets : true,
+    matchBrackets: true,
     autofocus: true,
 })
 editor.setOption('theme', 'material')
@@ -32,7 +32,7 @@ let sousSujet = getSubSbjet();
 let question = getQuestion();
 
 
-$("#exercice").change(function(e){
+$("#exercice").change(function (e) {
     sousSujet = getSubSbjet()
     question = getQuestion()
 })
@@ -49,10 +49,16 @@ function getQuestion() {
 
 let db = document.getElementById('valideRequest').getAttribute('database')
 let sujet = document.getElementById('valideRequest').getAttribute('sujet')
-$("#valideRequest").click(function(e){
+$("#valideRequest").click(function (e) {
     e.preventDefault();
     let rq = editor.getValue()
     $.ajax({
+            url: Routing.generate('requete'),
+            type: 'GET',
+            data: {
+                'requete': rq,
+                'database': db,
+                'sujet': sujet,
             url : Routing.generate('requete'),
             type : 'GET',
             data : {
@@ -60,12 +66,13 @@ $("#valideRequest").click(function(e){
                 'database' : db,
                 'sousSujet' : sousSujet,
             },
-            datatype : 'json',
-            success : function(data){
+            datatype: 'json',
+            success: function (data) {
                 $('#responses').empty();
                 let reponse = document.getElementById('responses');
                 console.log(data);
                 console.log("test " + question)
+                if (Array.isArray(data) === true && isEmpty(data) === false) {
                 if (Array.isArray(data) === true && isEmpty(data)===false && sousSujet === "Requête") {
                     let table = document.createElement('table');
                     table.setAttribute('class', 'table shadow')
@@ -179,3 +186,19 @@ $("#voirReponse").click(function(e){
     }
 })
 
+document
+    .getElementById('export-button')
+    .addEventListener('click', (e) => {
+        e.preventDefault()
+        $.ajax({
+            url: Routing.generate('training_export'),
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (err) {
+                console.error(err)
+            }
+        })
+    })

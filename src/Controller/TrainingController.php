@@ -9,6 +9,7 @@ use PDO;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -130,6 +131,21 @@ class TrainingController extends AbstractController
 
 
         return new JsonResponse($resultat);
+    }
+
+
+    /**
+     * @Route("/export", name="training_export", options={"expose"=true})
+     * @return JsonResponse
+     */
+    public function export(): JsonResponse
+    {
+        $database = new Database('mysql', $this->getUser());
+        $database->export();
+
+        return new JsonResponse([
+            'message' => "Les données ont bien étés exportées."
+        ], 200);
     }
 
 }

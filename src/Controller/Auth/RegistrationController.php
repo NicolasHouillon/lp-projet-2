@@ -6,7 +6,6 @@ use App\Database\Database;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Security\LoginAuthenticator;
-use PDOException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
