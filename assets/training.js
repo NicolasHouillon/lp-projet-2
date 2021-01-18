@@ -95,11 +95,21 @@ $("#valideRequest").click(function (e) {
                     reponse.append(table)
                 }
                 else {
-                    if (data[2] === null) {
-                        reponse.append("Requête validée")
+                    if(db==='Mysql') {
+                        if (data[2] === null) {
+                            reponse.append("Requête validée")
+                        }
+                        else {
+                            reponse.append(data[2])
+                        }
                     }
-                    else {
-                        reponse.append(data[2])
+                    if(db==='Sqlite') {
+                        if (data === true) {
+                            reponse.append("Requête validée")
+                        }
+                        else {
+                            reponse.append(data)
+                        }
                     }
                 }
             }
@@ -141,6 +151,7 @@ $("#voirReponse").click(function(e){
             datatype: 'json',
             success: function (data) {
                 $('#requested').empty();
+                console.log(data)
                 let reponseAttendu = document.getElementById('requested' );
                 if (Array.isArray(data) === true && isEmpty(data) ===false && sousSujet === "Requête") {
                     let table = document.createElement('table')
@@ -173,7 +184,6 @@ $("#voirReponse").click(function(e){
                 else {
                     reponseAttendu.append(data)
                 }
-
             }
         })
     }

@@ -5,11 +5,11 @@
   "titre" : "VILLES",
   "exercices" :
     {
-      "Création et modification de table" :
+      "Création et modification de table " :
         {
           "requetes" :
             {
-              "0": "CREATE TABLE villes(id INT PRIMARY KEY, nom VARCHAR(255) NOT NULL, code_postal VARCHAR(5) NOT NULL);",
+              "0": "CREATE TABLE villes(id INT PRIMARY KEY, nom VARCHAR(255) NOT NULL);",
               "1": "CREATE TABLE habitations(id INT PRIMARY KEY, num_addr VARCHAR(255) NOT NULL, rue VARCHAR(255) NOT NULL, code_postal VARCHAR(5) NOT NULL, ville INT NOT NULL REFERENCES villes(id) ON DELETE CASCADE ON UPDATE CASCADE);",
               "2": "CREATE TABLE habitants(id INT PRIMARY KEY AUTO_INCREMENT, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, date_naissance DATE NOT NULL, habitation INT NOT NULL REFERENCES habitations(id) ON DELETE CASCADE ON UPDATE CASCADE);",
               "3": "INSERT INTO villes (nom, code_postal) VALUES ('Lille','59000'), ('Lens', '62300');",
@@ -17,14 +17,14 @@
               "5": "INSERT INTO habitants (nom, prenom, date_naissance, habitation) VALUES  ('Bonnaire', 'Eric','1995-11-13', 1), ('Cernuta', 'Valentin','2000-12-22', 2);",
               "6" : "UPDATE habitants SET prenom = 'Nicolas' WHERE prenom like 'Eric';",
               "7" : "UPDATE habitants SET nom = 'Houillon';",
-              "8" : "DELETE FROM villes where nom like 'Lille';",
+              "8" : "DELETE FROM villes where nom = 'Lille';",
               "9" : "TRUNCATE TABLE habitants;",
               "10" : "DROP TABLE habitants;"
             }
           ,
           "questions" :
             {
-              "0": "Création de la table villes",
+              "0": "Création de la table garage",
               "1": "Création de la table habitations",
               "2": "Création de la table habitants",
               "3": "Insertion des villes",
@@ -32,7 +32,7 @@
               "5": "Insertion des habitants",
               "6": "Modification de l'habitant Eric Bonnaire pour que son prénom soit Nicolas",
               "7": "Modification des habitants pour que leurs noms soit Houillon",
-              "8": "Suppression de la ville de Lille",
+              "8": "Suppression de la ville Lille",
               "9": "Suppression des données de la table habitants",
               "10": "Suppression de la table habitants"
             }
@@ -46,18 +46,29 @@
               "2": "SELECT habitants.*, num_addr, rue from habitants join habitations h on habitants.habitation = h.id;",
               "3": "SELECT * from villes ORDER BY code_postal desc;",
               "4": "SELECT v.nom , COUNT(*) as 'nb_habitations' from habitations join villes v on habitations.ville = v.id GROUP BY v.nom;",
-              "5": "SELECT YEAR(date_naissance) as 'annee de naissance' from habitants where prenom like 'Eric';"
+              "5": "SELECT YEAR(date_naissance) as 'annee de naissance' from habitants where prenom like 'Eric';",
+              "6": "",
+              "7": "",
+              "8": "",
+              "9": "",
+              "10": ""
             }
           ,
           "questions":
             {
               "0": "Selectionner tous les habitants",
               "1": "Selectionner les habitants dont le prenom est Eric",
-              "2": "Selectionner tous les habitants avec leur numéro de rue et leur rue",
+              "2": "Selectionner tous les habitants avec leur numemro de rue et leur rue",
               "3": "Selectionner toutes les villes par ordre inversé des codes postaux",
               "4": "Connaitre le nombre d'habitations par villes",
-              "5": "Connaitre l'année de naissance de l'utilisateur Eric"
+              "5": "Connaitre l'année de naissance de l'utilisateur Eric",
+              "6": "",
+              "7": "",
+              "8": "",
+              "9": "",
+              "10": ""
             }
         }
     }
+
 }

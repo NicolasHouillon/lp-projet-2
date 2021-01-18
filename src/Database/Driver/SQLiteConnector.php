@@ -34,17 +34,34 @@ class SQLiteConnector extends BaseDriver
 
     public function createQuery(string $query)
     {
-        // TODO: Implement createQuery() method.
+        $sqlite = new SQLite3($this->user->getSqlitePath());
+        try{
+            $result = $sqlite->exec($query);
+        }
+        catch (\Exception $exception){
+            $suppr = "Warning: SQLite3::exec():";
+            $message =$exception->getMessage();
+            return substr($message,strlen($suppr));
+        }
+        return true;
     }
 
     public function requestQuery(string $query)
     {
-        $sqlite = new SQLite3($this->user->getSqlitePath());
-        return $sqlite->query($query)->fetchArray(SQLITE3_ASSOC);
+        $data = [];
+        $sqlite = new SQLite3('sqlite/admin.db');
+        $results = $sqlite->query($query);
+        while ($res= $results->fetchArray(1))
+        {
+            array_push($data, $res);
+
+        }
+        return $data;
     }
 
     public function suppression()
     {
-        // TODO: Implement suppression() method.
+        unlink($this->user->getSqlitePath());
+        new SQLite3($this->user->getSqlitePath());
     }
 }
