@@ -4,7 +4,7 @@
         <a href="{{ path('comment_new', {'sujet' : sujet}) }}">Nouveau commentaire</a>
 {% else %}
         {% for comment in comments %}
-                {% if comment.idSujet == sujet and comment.idQuestion == 1%}
+                {% if comment.idSujet == sujet and comment.idQuestion == 1 and comment.idDatabase == database%}
                         <div class="bg-white p-3 mb-2 rounded-sm shadow">
                                 <h5 class="text-uppercase font-weight-bold">{{ comment.idUser.firstname }}  {{ comment.idUser.lastname }}</h5>
                                 <span>

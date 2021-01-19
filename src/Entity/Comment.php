@@ -38,6 +38,11 @@ class Comment
      */
     private $id_question;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $idDatabase;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class Comment
     public function setIdQuestion(int $id_question): self
     {
         $this->id_question = $id_question;
+
+        return $this;
+    }
+
+    public function getIdDatabase(): ?string
+    {
+        return $this->idDatabase;
+    }
+
+    public function setIdDatabase(?string $idDatabase): self
+    {
+        $this->idDatabase = $idDatabase;
 
         return $this;
     }

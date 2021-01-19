@@ -149,7 +149,6 @@ $("#voirReponse").click(function(e){
             datatype: 'json',
             success: function (data) {
                 $('#requested').empty();
-                console.log(data)
                 let reponseAttendu = document.getElementById('requested' );
                 if (Array.isArray(data) === true && isEmpty(data) ===false && sousSujet === "Requête") {
                     let table = document.createElement('table')
