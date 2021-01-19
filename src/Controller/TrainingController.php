@@ -138,21 +138,20 @@ class TrainingController extends AbstractController
 
 
     /**
-     * @Route("/export", name="training_export", options={"expose"=true})
+     * @Route("/export/{db}", name="training_export", options={"expose"=true})
      * @return BinaryFileResponse
      */
-    public function export(): BinaryFileResponse
+    public function export(string $db): BinaryFileResponse
     {
-        $database = new Database('mysql', $this->getUser());
+        $database = new Database(strtolower($db), $this->getUser());
         $database->export();
 
         /** @var User $user */
         $user = $this->getUser();
         $username = $user->getMariadbUser();
-        $response = new BinaryFileResponse("$username.dump.sql");
+        $response = new BinaryFileResponse($username."_".strtolower($db).".dump.sql");
         $response->headers->set('Content-Type','text/sql');
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT,"$username.dump.sql");
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT,$username."_".strtolower($db).".dump.sql");
         return $response;
     }
-
 }

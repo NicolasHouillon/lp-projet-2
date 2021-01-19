@@ -24,7 +24,10 @@ class SQLiteConnector extends BaseDriver
 
     public function export()
     {
-        // TODO: Implement export() method.
+//        $sqlite = new SQLite3($this->user->getSqlitePath());
+//        $requete = ".output public/".$this->user->getMariadbUser()."_sqlite.dump.sql"
+//        $sqlite->exec($requete);
+//        $sqlite->exec('.dump');
     }
 
 
@@ -45,7 +48,7 @@ class SQLiteConnector extends BaseDriver
     public function requestQuery(string $query)
     {
         $data = [];
-        $sqlite = new SQLite3('sqlite/admin.db');
+        $sqlite = new SQLite3($_ENV['DB_SQLITE']);
         $results = $sqlite->query($query);
         while ($res= $results->fetchArray(1))
         {
