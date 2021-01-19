@@ -19,10 +19,13 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
+                        {% if is_granted('ROLE_USER') %}
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path('home') }}">Accueil <span class="sr-only">(current)</span></a>
                         </li>
+                        {% endif %}
                     </ul>
+
                     <ul class="navbar-nav my-2 my-lg-0">
                         {% if app.user %}
                             <li class="nav-item dropdown">
