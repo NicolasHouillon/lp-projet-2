@@ -51,10 +51,6 @@ class MySQLDriver extends BaseDriver
         system("mysql -u$username -p$password $username > $username.dump.sql");
     }
 
-    public function import()
-    {
-        // TODO: Implement import() method.
-    }
 
     public function createQuery(string $query)
     {
@@ -115,7 +111,5 @@ class MySQLDriver extends BaseDriver
 
         $result = $pdo->prepare('CREATE DATABASE '.$this->user->getMariadbUser());
         $result->execute();
-
-        return $result->errorInfo();
     }
 }

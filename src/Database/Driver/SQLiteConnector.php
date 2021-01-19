@@ -27,10 +27,6 @@ class SQLiteConnector extends BaseDriver
         // TODO: Implement export() method.
     }
 
-    public function import()
-    {
-        // TODO: Implement import() method.
-    }
 
     public function createQuery(string $query)
     {

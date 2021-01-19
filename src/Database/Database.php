@@ -34,7 +34,7 @@ class Database
     public static function onRegister(User $user): void {
         $dbs = [
             new MySQLDriver($user),
-//            new PostgreSQLDriver($user),
+            new PostgreSQLDriver($user),
             new SQLiteConnector($user)
         ];
 
@@ -49,7 +49,7 @@ class Database
         switch ($this->db) {
             case "mysql":
                 return $this->msConnector->createQuery($query);
-            case "postgre":
+            case "postgresql":
                 return $this->pgConnector->createQuery($query);
             case "sqlite":
                 return $this->sqConnector->createQuery($query);
@@ -63,12 +63,12 @@ class Database
         switch ($this->db) {
             case "mysql":
                 return $this->msConnector->requestQuery($query);
-            case "postgre":
+            case "postgresql":
                 return $this->pgConnector->requestQuery($query);
             case "sqlite":
                 return $this->sqConnector->requestQuery($query);
             default:
-                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite but get " . $this->db);
+                throw new InvalidArgumentException("Database should be mysql, postgresql or sqlite but get " . $this->db);
         }
     }
 
@@ -78,14 +78,14 @@ class Database
             case "mysql":
                 $this->msConnector->export();
                 break;
-            case "postgre":
+            case "postgresql":
                 $this->pgConnector->export();
                 break;
             case "sqlite":
                 $this->sqConnector->export();
                 break;
             default:
-                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite but get " . $this->db);
+                throw new InvalidArgumentException("Database should be mysql, postgresql or sqlite but get " . $this->db);
         }
     }
 
@@ -93,13 +93,16 @@ class Database
     {
         switch ($this->db) {
             case "mysql":
-                return $this->msConnector->suppression();
-            case "postgre":
-                return $this->pgConnector->suppression();
+                $this->msConnector->suppression();
+                break;
+            case "postgresql":
+                $this->pgConnector->suppression();
+                break;
             case "sqlite":
-                return $this->sqConnector->suppression();
+                $this->sqConnector->suppression();
+                break;
             default:
-                throw new InvalidArgumentException("Database should be mysql, postgre or sqlite");
+                throw new InvalidArgumentException("Database should be mysql, postgresql or sqlite");
         }
     }
 
