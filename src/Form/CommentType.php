@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Comment;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,14 +15,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CommentType extends AbstractType
 {
     private Security $security;
+    private $tokenStorage;
 
     /**
      * CommentType constructor.
      * @param Security $security
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(Security $security)
+    public function __construct(Security $security, TokenStorageInterface $tokenStorage)
     {
         $this->security = $security;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -57,9 +61,6 @@ class CommentType extends AbstractType
         $form->remove('idSujet');
         $form->remove('id_question');
 
-        $sujet = $request->query->get('sujet');
-        $entity->setIdUser($this->security->getUser()->getId());
-        $entity->setIdSujet($sujet);
-        $entity->setIdQuestion(1/*$request->query->get('exercice')*/);
+        $entity->setIdUser($this->tokenStorage->getToken()->getUser());
     }
 }

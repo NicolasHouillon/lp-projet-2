@@ -93,7 +93,7 @@ $("#valideRequest").click(function (e) {
                     reponse.append(table)
                 }
                 else {
-                    if(db==='Mysql' || db==='Postgresql') {
+                    if(db==='Mysql' || 'Postgresql') {
                         if (data[2] === null) {
                             reponse.append("Requête validée")
                         }
