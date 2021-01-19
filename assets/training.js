@@ -93,7 +93,7 @@ $("#valideRequest").click(function (e) {
                     reponse.append(table)
                 }
                 else {
-                    if(db==='Mysql' || db==='Postgresql') {
+                    if(db==='Mysql' || 'Postgresql') {
                         if (data[2] === null) {
                             reponse.append("Requête validée")
                         }
@@ -149,6 +149,7 @@ $("#voirReponse").click(function(e){
             datatype: 'json',
             success: function (data) {
                 $('#requested').empty();
+                console.log(data)
                 let reponseAttendu = document.getElementById('requested' );
                 if (Array.isArray(data) === true && isEmpty(data) ===false && sousSujet === "Requête") {
                     let table = document.createElement('table')
