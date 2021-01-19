@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-const routes = require('../public/assets/js/fos_js_routes.json');
+const routes = require('../public/js/fos_js_routes.json');
 
 import Routing from 'fos-routing';
 

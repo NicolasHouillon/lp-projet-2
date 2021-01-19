@@ -9,38 +9,114 @@
     <div class="card">
         <h1 class="card-header">Qu'est-ce que c'est ?</h1>
         <div class="card-body">
-            du blabla
+            SQL Training est une plate-forme d'entraiment au SQL. Tu peux jouer avec les différentes tables mises à ta disposition : sélectionner, modifier, insérér et même supprimer tous les données si tu le souhaites !
         </div>
     </div>
 
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="card mt-4">
-        <h1 class="card-header">Le sujet proposé</h1>
+        <h1 class="card-header">Guide d'utilisation</h1>
         <div class="card-body">
-            <h2>Création d’une plate-forme d’entraînement au SQL</h2>
-            <p class="text-muted">Le but de ce projet est de concevoir une plate-forme web permettant de s’exercer au SQL pour des étudiants et permettre à l’enseignant de surveiller l’avancement de chacun. L’utilisateur principal sera un étudiant.</p>
-            <h3>Les objectifs pédagogiques</h3>
-            <ul>
-                <li>L’étudiant utilisant cette plate-forme pourra aussi bien exécuter des requêtes de questionnement que des requêtes de création de tables, d’insertion de données.</li>
-                <li>Pour utiliser la plate-forme l’étudiant devra s’identifier. Le niveau de sécurité sera à discuter avant de démarrer le projet.</li>
-                <li>L’étudiant devra avoir le choix du type de base de données ( Mysql, postgresql et SQLite ).</li>
-                <li>L’étudiant aura le choix de partir d’une base vierge ou d’une base de données existante.</li>
-                <li>L’étudiant pourra faire un dump de sa base de données.</li>
-                <li>L’étudiant pourra enregistrer l’historique de ses commandes.</li>
-                <li>L’enseignant aura une interface de gestion des bases de données présentes sur la plate-forme ainsi que des utilisateurs.</li>
-            </ul>
+            <h2>Mysql</h2>
+            <p class="text-muted">Quelques explications pour Mysql.</p>
+            <h3>Les requêtes de création et de modification de table</h3>
+            <p>
+                Dans la page d'entrainement, les requetes de création et de modification de table vont interroger la base de données personnelle de l'utilisateur.
+                <br>La base de données personnelle est automatiquement créer lorqu'un utilisateur s'enregistre sur le site. Elle est nommée sous la forme 'prénom_nom'.
+                <br>L'utilisateur peut supprimer sa base de données directement depuis la page d'entrainement.
 
-            <h3>Les contraintes</h3>
-            <ul>
-                <li>La plate-forme doit être facilement déployable d’un serveur web à l’autre.</li>
-                <li>Présence d’interfaces pour paramétrer les différents SGBD.</li>
-                <li>L’utilisation d’Ajax est souhaitable.</li>
-                <li>La plate-forme doit être optimiser pour pouvoir s’exécuter sur une machine légère (RaspBerry Pi)</li>
-                <li>Les interfaces doivent être intuitives pour l’étudiant.</li>
-                <li>Un guide d’utilisation pour l’enseignant est demandé.</li>
-                <li>Toutes les technologies employées devront être libre de droit.</li>
-            </ul>
+            </p>
+
+            <h3>Les requêtes de questionnement</h3>
+            <p>
+                Dans la page d'entrainement, les requetes de questionnement vont interroger la base de données principale.
+                <br>Pour modifier la base de données, vous devez accéder à celle-ci par vos propres moyens.
+                <br>Pour que celle-ci soit prise en compte, il faudra modifier la méthode requestQuery() situé dans le fichier Database/MySQLDriver.php.
+            </p>
+
+            <h3>Ajouter un nouveau sujet</h3>
+            <p>
+                Pour ajouter un nouveau sujet, il faudra ajouter un nouveau fichier dans le répertoire public/exercices/mysql.
+                <br>Il faut ensuite créer un nouveau répertoire sous la forme 'sujet'.
+                <br>Le fichier doit être insérer dans ce dernier au format Json et doit être nommé 'sujet.json'.
+            </p>
+
+
+            <h2>Postresql</h2>
+            <p class="text-muted">Quelques explications pour Postresql.</p>
+            <h3>Les requêtes de création et de modification de table</h3>
+            <p>
+                Dans la page d'entrainement, les requetes de création et de modification de table vont interroger la base de données personnelle de l'utilisateur.
+                <br>La base de données personnelle est automatiquement créer lorqu'un utilisateur s'enregistre sur le site. Elle est nommée sous la forme 'prénom_nom'.
+                <br>L'utilisateur peut supprimer sa base de données directement depuis la page d'entrainement.
+
+            </p>
+
+            <h3>Les requêtes de questionnement</h3>
+            <p>
+                Dans la page d'entrainement, les requetes de questionnement vont interroger la base de données principale.
+                <br>Pour modifier la base de données, vous devez accéder à celle-ci par vos propres moyens.
+                <br>Pour que celle-ci soit prise en compte, il faudra modifier la méthode requestQuery() situé dans le fichier Database/PostreSQLDriver.php.
+            </p>
+
+            <h3>Ajouter un nouveau sujet</h3>
+            <p>
+                Pour ajouter un nouveau sujet, il faudra ajouter un nouveau fichier dans le répertoire public/exercices/postresql.
+                <br>Il faut ensuite créer un nouveau répertoire sous la forme 'sujet'.
+                <br>Le fichier doit être insérer dans ce dernier au format Json et doit être nommé 'sujet.json'.
+            </p>
+
+
+            <h2>Sqlite</h2>
+            <p class="text-muted">Quelques explications pour Sqlite.</p>
+            <h3>Les requêtes de création et de modification de table</h3>
+            <p>
+                Dans la page d'entrainement, les requetes de création et de modification de table vont interroger la base de données personnelle de l'utilisateur.
+                <br>La base de données personnelle est automatiquement créer lorqu'un utilisateur s'enregistre sur le site. Elle est nommée sous la forme 'prénom_nom.db' dans le dossier public/sqlite.
+                <br>L'utilisateur peut supprimer sa base de données directement depuis la page d'entrainement.
+
+            </p>
+
+            <h3>Les requêtes de questionnement</h3>
+            <p>
+                Dans la page d'entrainement, les requetes de questionnement vont interroger la base de données principale qui s'appelle 'admin.db. dans le dossier public/exercices/sqlite.
+                <br>Pour modifier la base de données, vous devez accéder à celle-ci par vos propres moyens.
+                <br>Pour que celle-ci soit prise en compte, il faudra modifier la méthode requestQuery() situé dans le fichier Database/SQLiteConnector.php.
+            </p>
+
+            <h3>Ajouter un nouveau sujet</h3>
+            <p>
+                Pour ajouter un nouveau sujet, il faudra ajouter un nouveau fichier dans le répertoire public/exercices/sqlite.
+                <br>Il faut ensuite créer un nouveau répertoire sous la forme 'sujet'.
+                <br>Le fichier doit être insérer dans ce dernier au format Json et doit être nommé 'sujet.json'.
+            </p>
+
+            <h2>Gestion des utilisateurs</h2>
+            <p class="text-muted">Quelques explications sur la gestion des utilisateurs.</p>
+{#            <h3>Les requêtes de création et de modification de table</h3>#}
+{#            <p>#}
+{#                Dans la page d'entrainement, les requetes de création et de modification de table vont interroger la base de données personnelle de l'utilisateur.#}
+{#                <br>La base de données personnelle est automatiquement créer lorqu'un utilisateur s'enregistre sur le site. Elle est nommée sous la forme 'prénom_nom'.#}
+{#                <br>L'utilisateur peut supprimer sa base de données directement depuis la page d'entrainement.#}
+
+{#            </p>#}
+
+{#            <h3>Les requêtes de questionnement</h3>#}
+{#            <p>#}
+{#                Dans la page d'entrainement, les requetes de questionnement vont interroger la base de données principale.#}
+{#                <br>Pour modifier la base de données, vous devez accéder à celle-ci par vos propres moyens.#}
+{#                <br>Pour que celle-ci soit prise en compte, il faudra modifier la méthode requestQuery() situé dans le fichier Database/PostreSQLDriver.php.#}
+{#            </p>#}
+
+{#            <h3>Ajouter un nouveau sujet</h3>#}
+{#            <p>#}
+{#                Pour ajouter un nouveau sujet, il faudra ajouter un nouveau fichier dans le répertoire public/exercices/postresql.#}
+{#                <br>Il faut ensuite créer un nouveau répertoire sous la forme 'sujet'.#}
+{#                <br>Le fichier doit être insérer dans ce dernier au format Json et doit être nommé 'sujet.json'.#}
+{#            </p>#}
         </div>
     </div>
+    {% endif %}
 {% endblock %}
 
 

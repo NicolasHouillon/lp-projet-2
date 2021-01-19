@@ -65,8 +65,6 @@ $("#valideRequest").click(function (e) {
             success: function (data) {
                 $('#responses').empty();
                 let reponse = document.getElementById('responses');
-                console.log(data);
-                console.log("test " + question)
                 if (Array.isArray(data) === true && isEmpty(data)===false && sousSujet === "Requête") {
                     let table = document.createElement('table');
                     table.setAttribute('class', 'table shadow')
@@ -151,7 +149,6 @@ $("#voirReponse").click(function(e){
             datatype: 'json',
             success: function (data) {
                 $('#requested').empty();
-                console.log(data)
                 let reponseAttendu = document.getElementById('requested' );
                 if (Array.isArray(data) === true && isEmpty(data) ===false && sousSujet === "Requête") {
                     let table = document.createElement('table')
