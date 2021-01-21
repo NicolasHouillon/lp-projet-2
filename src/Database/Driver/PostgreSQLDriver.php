@@ -38,7 +38,8 @@ class PostgreSQLDriver extends BaseDriver
 
     public function export()
     {
-        // TODO: Implement export() method.
+        $username = $this->user->getMariadbUser();
+        system("pg_dump $username > $username'_postgresql'.dump.sql");
     }
 
 
@@ -66,7 +67,7 @@ class PostgreSQLDriver extends BaseDriver
     public function requestQuery(string $query)
     {
         try {
-            $pdo = new PDO("pgsql:dbname=admin");
+            $pdo = new PDO("pgsql:dbname=".$_ENV['DB_POSGRESQL']);
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit(1);
@@ -87,7 +88,7 @@ class PostgreSQLDriver extends BaseDriver
     public function suppression()
     {
         try {
-            $pdo = new PDO("pgsql:dbname=admin");
+            $pdo = new PDO("pgsql:dbname=".$_ENV['DB_POSGRESQL']);
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit(1);

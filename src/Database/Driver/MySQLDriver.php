@@ -48,7 +48,7 @@ class MySQLDriver extends BaseDriver
     {
         $username = $this->user->getMariadbUser();
         $password = $this->user->getMariadbPassword();
-        system("mysql -u$username -p$password $username > $username.dump.sql");
+        system("mysql -u$username -p$password $username > $username'_mysql'.dump.sql");
     }
 
 
@@ -78,7 +78,7 @@ class MySQLDriver extends BaseDriver
     {
         $host = $this->fullHost;
         try {
-            $pdo = new PDO("mysql:dbname=projet_lp_2;host=" . $host, $_ENV['DB_USER'], $_ENV['DB_PWD']);
+            $pdo = new PDO("mysql:dbname=".$_ENV['DB_MYSQL'].";host=" . $host, $_ENV['DB_USER'], $_ENV['DB_PWD']);
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit(1);
