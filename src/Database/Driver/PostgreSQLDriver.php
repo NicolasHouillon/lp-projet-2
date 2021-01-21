@@ -30,8 +30,11 @@ class PostgreSQLDriver extends BaseDriver
         if($pdo !== null) {
             $user = $this->user->getPgsqlUser();
             $password = $this->user->getPgsqlPassword();
+            $pdo->query("DROP ROLE IF EXISTS " . $user);
             $pdo->query("CREATE ROLE " . $user . " createdb");
+            $pdo->query("DROP USER IF EXISTS " . $user);
             $pdo->query("CREATE USER " . $user . " WITH PASSWORD '" . $password . "';");
+            $pdo->query("DROP DATABASE IF EXISTS " . $user);
             $pdo->query("CREATE DATABASE " . $user . " OWNER " . $user);
         }
     }
@@ -55,9 +58,7 @@ class PostgreSQLDriver extends BaseDriver
         if ($pdo !== null) {
             $result = $pdo->prepare($query);
             $result->execute();
-//            return [$pdo, $result->errorInfo()];
             if ($result !== false) {
-//                return [$result];
                 return $result->errorInfo();
             }
         }
@@ -76,9 +77,7 @@ class PostgreSQLDriver extends BaseDriver
         if ($pdo !== null) {
             $result = $pdo->prepare($query);
             $result->execute();
-//            return [$pdo, $result->errorInfo()];
             if ($result !== false) {
-//                return [$result];
                 return $result->fetchAll(PDO::FETCH_ASSOC);
             }
         }

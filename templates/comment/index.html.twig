@@ -1,7 +1,7 @@
 <h2 class="mt-4">Commentaires</h2>
 {%  if comments is empty %}
         <span colspan="4">no records found</span><br>
-        <a href="{{ path('comment_new', {'sujet' : sujet}) }}">Nouveau commentaire</a>
+{#        <a href="{{ path('comment_new', {'sujet' : sujet}) }}">Nouveau commentaire</a>#}
 {% else %}
         {% for comment in comments %}
                 {% if comment.idSujet == sujet and comment.idQuestion == 1 and comment.idDatabase == database%}
@@ -14,5 +14,5 @@
                         </div><br>
                 {% endif %}
         {% endfor %}
-        <a id="newCommentaire" href="{{ path('comment_new', {'sujet' : sujet, 'question' : 1}) }}">Nouveau commentaire</a>
+{#        <a id="newCommentaire" href="{{ path('comment_new', {'sujet' : sujet, 'question' : 1}) }}">Nouveau commentaire</a>#}
 {% endif %}

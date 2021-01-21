@@ -21,7 +21,7 @@ class MySQLDriver extends BaseDriver
     {
         $host = $this->fullHost;
         try {
-            $pdo = new PDO("mysql:host=$host", 'root', 'Coucoutoi++12');
+            $pdo = new PDO("mysql:host=$host", $_ENV['DB_USER'], $_ENV['DB_PWD']);
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit(1);
@@ -33,8 +33,9 @@ class MySQLDriver extends BaseDriver
             $user = $this->user->getMariadbUser();
             $password = $this->user->getMariadbPassword();
             $h = $this->host;
-//            dd($pdo, $user, $password, $h);
+            $pdo->query("DROP USER IF EXISTS '$user'@'$h'");
             $pdo->query("CREATE USER '$user'@'$h' IDENTIFIED BY '$password';");
+            $pdo->query("DROP DATABASE IF EXISTS " . $user);
             $pdo->query("CREATE DATABASE $user");
             $pdo->query("GRANT ALL ON $user.* TO '$user'@'$h';");
             $pdo->query("GRANT SELECT ON projet_lp_2.* TO '$user'@'$h';");
@@ -64,10 +65,8 @@ class MySQLDriver extends BaseDriver
 
         if ($pdo !== null) {
             $result = $pdo->prepare($query);
-            $result->execute();
-//            return [$pdo, $result->errorInfo()];
             if ($result !== false) {
-//                return [$result];
+                $result->execute();
                 return $result->errorInfo();
             }
         }
@@ -87,9 +86,7 @@ class MySQLDriver extends BaseDriver
         if ($pdo !== null) {
             $result = $pdo->prepare($query);
             $result->execute();
-//            return [$pdo, $result->errorInfo()];
             if ($result !== false) {
-//                return [$result];
                 return $result->fetchAll(PDO::FETCH_ASSOC);
             }
         }
